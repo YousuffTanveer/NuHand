@@ -1,9 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from "./firebaseConfig"
+
+const app = initializeApp(firebaseConfig);
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <View>
       <Text>Open up App.tsx to start!
       </Text>
       <Text>
@@ -12,14 +17,8 @@ export default function App() {
       <Text>Test</Text>
       <StatusBar style="auto" />
     </View>
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
