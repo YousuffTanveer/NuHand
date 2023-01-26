@@ -1,12 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { getUsers } from "./firebaseConfig";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LogInScreen from "./Components/LogInScreen";
-import HomeScreen from "./Components/HomeScreen";
+import LogInScreen from "./Screens/LogInScreen";
+import HomeScreen from "./Screens/HomeScreen";
+
+type RootStackParamList = {
+  Login: undefined,
+  Home: undefined
+};
 
 const Stack = createNativeStackNavigator();
 
