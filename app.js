@@ -11,6 +11,7 @@ function App() {
         console.log(result);
         setListings(results);
     });
+    console.log(listings);
     var Stack = (0, native_stack_1.createNativeStackNavigator)();
     // return (
     //   <NavigationContainer>
