@@ -1,20 +1,27 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { getUsers } from "./firebaseConfig";
+import { getListings } from "./firebaseConfig";
 import { NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LogInScreen from "./Components/LogInScreen";
-import HomeScreen from "./Components/HomeScreen";
+import LogInScreen from "./Screens/LogInScreen";
+import HomeScreen from "./Screens/HomeScreen";
+
+type RootStackParamList = {
+  Login: undefined,
+  Home: undefined
+};
 
 
 
 export default function App() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [listings, setListings] = useState<any[]>([]);
 
-  getUsers.then((result) => {
+  getListings.then((result) => {
     const results: Array<any> = result;
-    setUsers(results);
+    console.log(result);
+    
+    setListings(results);
   });
 
 const Stack = createNativeStackNavigator();

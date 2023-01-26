@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { auth } from "../firebaseConfig";
 import {
@@ -16,25 +16,27 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-const LogInScreen = () => {
+
+const LogInScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState({})
 
-  const navigation = useNavigation();
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate("Home");
+        return navigation.navigate("Home");
       } else {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [user]);
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
+      .then((userCredential) => {
+        const user = userCredential.user;
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -44,8 +46,10 @@ const LogInScreen = () => {
 
   const handleLogIn = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
+      .then((userCredential) => {
+        console.log(userCredential);
+        setUser(userCredential.user)
+    
       })
       .catch((error) => {
         const errorCode = error.code;
