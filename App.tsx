@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { getUsers } from "./firebaseConfig";
-import { NavigationContainer } from "@react-navigation/native";
+import { getListings } from "./firebaseConfig";
+import { NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LogInScreen from "./Screens/LogInScreen";
 import HomeScreen from "./Screens/HomeScreen";
@@ -12,30 +12,24 @@ type RootStackParamList = {
   Home: undefined
 };
 
-const Stack = createNativeStackNavigator();
+
 
 export default function App() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [listings, setListings] = useState<any[]>([]);
 
-  getUsers.then((result) => {
+  getListings.then((result) => {
     const results: Array<any> = result;
-    setUsers(results);
+    console.log(result);
+    
+    setListings(results);
   });
 
+const Stack = createNativeStackNavigator();
+
   return (
-    // <View>
-    //   <Text>Hello
-    //   </Text>
-    //   <FlatList keyExtractor={(item) => item.id} data={users} renderItem={({item}) => (
-    //     <Text style={styles.items}>{item.username}</Text>
-    //   )}/>
-    //   <Text>
-    //   </Text>
-    //   <Text>Test</Text>
-    //   <StatusBar style="auto" />
-    // </View>
+   
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" component={LogInScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>

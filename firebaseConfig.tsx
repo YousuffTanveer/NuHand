@@ -16,16 +16,16 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-const colRef = collection(db, "users");
+const colRef = collection(db, "listing");
 
 const auth = getAuth();
 
-const getUsers = getDocs(colRef).then((snapshot) => {
-  let users: Array<any> = [];
+const getListings = getDocs(colRef).then((snapshot) => {
+  let listings: Array<any> = [];
   snapshot.docs.forEach((doc) => {
-    users.push({ ...doc.data(), id: doc.id });
+    listings.push({ ...doc.data(), id: doc.id });
   });
-  return users;
+  return listings;
 });
 
-export { getUsers, auth };
+export { getListings, auth };
