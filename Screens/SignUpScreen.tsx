@@ -7,38 +7,41 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
-import { auth } from "../firebaseConfig";
+import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { addNewUser, auth, db } from "../firebaseConfig";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 
 
-const LogInScreen = ({navigation}) => {
-  
+
+
+const SignUpScreen = ({ navigation, setAllFirstName, firstName, setFirstName }) => {
+    
+  // const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({})
-  const [err, setErr] = useState(false)
-
-
   
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        // return navigation.navigate("Home");
-      } else {
-      }
-    });
-    return unsubscribe;
-  }, [user]);
+  const checkTextInput = () => {
+    if (!firstName.trim() || !lastName.trim() || !number.trim() || !email.trim() || !password.trim()){
+      alert('Please Enter Empty Field');
+      return;
+    } else {
+        navigation.navigate("Welcome")
+    }
+  };
 
   const handleSignUp = () => {
+    checkTextInput()
+    addNewUser(email, firstName, lastName, number)
+    setAllFirstName(firstName)
+    
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -47,29 +50,32 @@ const LogInScreen = ({navigation}) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+
   };
-
-  const handleLogIn = () => {
-    setErr(false)
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user)
-      })
-      .catch((error) => {
-       setErr(true)
-        
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  };
-
-  
-
-
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="First Name"
+          required="true"
+          value={firstName}
+          onChangeText={(text) => setFirstName(text)}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Last Name"
+          value={lastName}
+          onChangeText={(text) => setLastName(text)}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Phone Number"
+          keyboardType="numeric"
+          value={number}
+          onChangeText={(text) => setNumber(text)}
+          style={styles.input}
+        />
         <TextInput
           placeholder="Email"
           value={email}
@@ -84,24 +90,20 @@ const LogInScreen = ({navigation}) => {
           secureTextEntry
         />
       </View>
-      {err ? <View><Text>Invalid details</Text></View> : null}
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleLogIn} style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {return navigation.navigate("SignUp");}}
-          style={[styles.button, styles.buttonOutline]}
+          onPress={handleSignUp}
+          style={styles.button}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default LogInScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

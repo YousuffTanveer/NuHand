@@ -12,14 +12,14 @@ function App() {
         setListings(results);
     });
     var Stack = (0, native_stack_1.createNativeStackNavigator)();
-    // return (
-    //   <NavigationContainer>
-    //     <Stack.Navigator initialRouteName="Home">
-    //       <Stack.Screen name="Login" component={LogInScreen} />
-    //       <Stack.Screen name="Home" component={HomeScreen} />
-    //     </Stack.Navigator>
-    //   </NavigationContainer>
-    // );
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Login" component={LogInScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
 }
 exports["default"] = App;
 var styles = react_native_1.StyleSheet.create({
