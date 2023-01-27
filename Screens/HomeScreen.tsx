@@ -1,33 +1,41 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list'
 
-const HomeScreen = ( {navigation} ) => {
+const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => {
 
-  const [currency, setCurrency] = useState("");
+
+  // api data:
+  const data = [
+    {key:'1', value:'USD'},
+    {key:'2', value:'EUR'},
+]
 
   const handleSubmit = () => {
-
+    if (selectedCurrency) {
+    return navigation.navigate('Listings')
+    }
   }
 
   return (
     
-    <View>
+    <View >
           <Button
             onPress={() => {
-                return navigation.navigate('Login')
+              return navigation.navigate('Login')
+              
             }}
-            title="Login"
+            title={"Login"}
             />
     <Text style={styles.header}> nuHand </Text>
     <Text> GBP to </Text>
     <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Currency"
-          value={currency}
-          onChangeText={(text) => setCurrency(text)}
-          style={styles.input}
-        />
+    <SelectList 
+        setSelected={(val) => setSelectedCurrency(val)} 
+        data={data} 
+        save="value"
+    />
         </View>
     <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           <Text style={styles.buttonText}>Find Listings</Text>
@@ -53,6 +61,13 @@ const HomeScreen = ( {navigation} ) => {
   button: {
     backgroundColor: "#0782f9",
     width: "100%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  loginButton: {
+    backgroundColor: "#0782f9",
+    width: "10%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",

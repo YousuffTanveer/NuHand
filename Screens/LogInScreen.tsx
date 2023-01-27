@@ -18,11 +18,10 @@ import {
 
 
 
-const LogInScreen = ({navigation}) => {
+const LogInScreen = ({navigation, user, setUser}) => {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState({})
   const [err, setErr] = useState(false)
 
 
@@ -30,7 +29,6 @@ const LogInScreen = ({navigation}) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         // return navigation.navigate("Home");
       } else {
       }

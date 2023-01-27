@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-const colRef = collection(db, "users");
+const colRef = collection(db, "listings");
 
 const auth = getAuth();
 

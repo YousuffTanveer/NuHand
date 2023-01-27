@@ -1,0 +1,66 @@
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { getListings } from '../firebaseConfig';
+import ListingBox from './ListingBox';
+import { SelectList } from 'react-native-dropdown-select-list'
+
+const Listings = ( { selectedCurrency, setSelectedCurrency }) => {
+    const [listings, setListings] = useState<any[]>([]);
+    useEffect(() => {
+    getListings.then((listings) => {
+      let filteredListings: Array<{}> = [];
+        listings.filter((listing) => {
+          console.log(listing)
+          if (listing.to === selectedCurrency) {
+            filteredListings.push(listing)
+          }
+        })
+        setListings(filteredListings);
+      });
+    }, [selectedCurrency])
+
+    const data = [
+      {key:'1', value:'USD'},
+      {key:'2', value:'EUR', exR: 0.81},
+    ]
+
+    return (
+      
+      <View>
+      <SelectList 
+          setSelected={(val) => setSelectedCurrency(val)} 
+          data={data} 
+          save="value"
+      ></SelectList>
+      <Text>{listings.length} results found near you!</Text>
+      <Text>current exchange rate:</Text>
+     
+        <View style={styles.Listingbox}>
+        {listings.map((listing) => {
+            return  <ListingBox listing={listing}/>
+        })}
+        </View>
+        </View>
+        )}
+    
+
+export default Listings
+
+const styles = StyleSheet.create({
+    view: {
+      margin: 10,
+    },
+    header: {
+      width: "100%",
+      padding: 15,
+      borderRadius: 10,
+      alignItems: "center",
+      fontWeight: "700",
+      fontSize: 16,
+    },
+    Listingbox: {
+    margin: 10,
+    alignItems: "center",
+    padding: 5
+    }
+    ,});
