@@ -24,7 +24,7 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency, firstN
     if (user.length <= 0) {
       return navigation.navigate('Login')
     } else {
-      return navigation.navigate('Profile')
+      return navigation.navigate('Account')
     }
   }
 
