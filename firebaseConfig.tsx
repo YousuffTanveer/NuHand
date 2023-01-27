@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCSZn2n3Xxfn2EhPJeiYkH8ufSzBRU_l0s",
@@ -28,4 +29,36 @@ const getListings = getDocs(colRef).then((snapshot) => {
   return listings;
 });
 
-export { getListings, auth, colRef };
+const addNewUser = (email, first_name, last_name, number)=> {
+  addDoc(colRef, {
+email: email,
+first_name: first_name,
+last_name: last_name,
+number: number
+})
+}
+
+
+
+
+
+
+  // db.collection('users')
+  // .add({
+  //   name: 'Ada Lovelace',
+  //   age: 30,
+  // })
+  // .then(() => {
+  //   console.log('User added!');
+  // });
+
+// db.collection('users').add({userData})
+// .then(res => {
+//   // Successful response
+// }).catch(error => {
+//   // Handle error
+// });
+
+
+
+export { getListings, auth, addNewUser, db, colRef };
