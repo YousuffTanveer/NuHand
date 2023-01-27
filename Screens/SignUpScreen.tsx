@@ -40,7 +40,6 @@ const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
   const handleSignUp = () => {
     checkTextInput()
     addNewUser(email, firstName, lastName, number)
-    setAllFirstName(firstName)
     
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

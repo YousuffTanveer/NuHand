@@ -10,7 +10,6 @@ const Listings = ( { selectedCurrency, setSelectedCurrency }) => {
     getListings.then((listings) => {
       let filteredListings: Array<{}> = [];
         listings.filter((listing) => {
-          console.log(listing)
           if (listing.to === selectedCurrency) {
             filteredListings.push(listing)
           }
@@ -63,4 +62,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 5
     }
-    ,});
+    });
