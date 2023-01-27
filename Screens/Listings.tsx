@@ -35,7 +35,7 @@ const Listings = ( { selectedCurrency, setSelectedCurrency }) => {
       <Text>{listings.length} results found near you!</Text>
       <Text>current exchange rate:</Text>
      
-        <View style={styles.Listingbox}>
+        <View>
         {listings.map((listing) => {
             return  <ListingBox listing={listing}/>
         })}
@@ -46,21 +46,6 @@ const Listings = ( { selectedCurrency, setSelectedCurrency }) => {
 
 export default Listings
 
-const styles = StyleSheet.create({
-    view: {
-      margin: 10,
-    },
-    header: {
-      width: "100%",
-      padding: 15,
-      borderRadius: 10,
-      alignItems: "center",
-      fontWeight: "700",
-      fontSize: 16,
-    },
-    Listingbox: {
-    margin: 10,
-    alignItems: "center",
-    padding: 5
-    }
-    ,});
+const styles = StyleSheet.create
+   
+  

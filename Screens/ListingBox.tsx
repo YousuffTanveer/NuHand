@@ -1,27 +1,44 @@
-
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from "react-native";
+import { ListItem, Avatar, Button } from "@rneui/themed";
+import { MessageOutlined, StarOutlined } from "@ant-design/icons";
 
 const ListingBox = ({ listing }) => {
-    return (
-        <View style={styles.container}>
-            <View>profile image</View>
-        <Text>
-            From: {listing.from} to {listing.to}
+  return (
+    <ListItem bottomDivider style={styles.containerStyle}>
+      <Avatar
+        size={60}
+        rounded
+        source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
+      />
+      <ListItem.Content >
+        <ListItem.Title style={{padding: 2}}>Name</ListItem.Title>
+        <ListItem.Subtitle style={{padding: 2}}>Location</ListItem.Subtitle>
+        <Text style={{padding: 5}}>
+          {listing.amount_from} {listing.from} to {listing.amount_to}{" "}
+          {listing.to}
         </Text>
-            <Text>{listing.amount_from} to {listing.amount_to} </Text>
-            </View>
-            )
-}
+      </ListItem.Content>
+      <View>
+        <Button radius={"sm"} type="solid" style={styles.button}>
+          <StarOutlined style={{ fontSize: "16px", color: "white" }} />
+        </Button>
+        <Button radius={"sm"} type="solid" style={styles.button}>
+          <MessageOutlined style={{ fontSize: "16px", color: "white" }} />
+        </Button>
+      </View>
+    </ListItem>
+  );
+};
 
-export default ListingBox
+export default ListingBox;
 
 const styles = StyleSheet.create({
-    
-    container: {
-        width: "100%",
-        height: 100,
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    }
-    });
+  containerStyle: {
+    alignItems: "stretch",
+    padding: 2,
+    justifyContent: "flex-start",
+  },
+  button: {
+    padding: 2
+  }
+});
