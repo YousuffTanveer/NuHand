@@ -7,6 +7,9 @@ import LogInScreen from "./Screens/LogInScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import Listings from "./Screens/Listings";
 import Account from "./Screens/Account";
+import AddListing from "./Screens/AddListing";
+import Footer from "./components/Footer";
+
 import PersonalInfo from "./Screens/PersonalInfo";
 import MyListings from "./Screens/MyListings";
 import SavedListings from "./Screens/SavedListings";
@@ -19,8 +22,12 @@ type RootStackParamList = {
 
 
 export default function App() {
-  const [user, setUser] = useState({})
+  const [firstName, setFirstName] = useState("");
+
+  const [user, setUser] = useState([])
   const [selectedCurrency, setSelectedCurrency] = useState("");
+  
+  
 
 const Stack = createNativeStackNavigator();
 
@@ -32,11 +39,14 @@ const Stack = createNativeStackNavigator();
   {(props) => <LogInScreen {...props} user={user} setUser={setUser} />}
   </Stack.Screen>
         <Stack.Screen name='Home' options={{ title: 'Home' }}>
-  {(props) => <HomeScreen {...props} selectedCurrency={selectedCurrency} setSelectedCurrency={setSelectedCurrency} />}
+  {(props) => <HomeScreen {...props} selectedCurrency={selectedCurrency} setSelectedCurrency={setSelectedCurrency} firstName={firstName} user={user} setUser={setUser} />}
   </Stack.Screen>
         <Stack.Screen name="Listings" options={{ title: 'Listings' }}>
   {(props) => <Listings {...props} selectedCurrency={selectedCurrency} setSelectedCurrency={setSelectedCurrency} />}
    </Stack.Screen>
+<Stack.Screen name='AddListing' options={{ title: 'AddListing' }}>
+  {(props) => <AddListing {...props} user={user} addListing={AddListing}/>}
+</Stack.Screen>
         <Stack.Screen name="Account" options={{ title: 'Account' }}>
         {(props) => <Account {...props} user={user} />}
         </Stack.Screen>

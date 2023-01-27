@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
-const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => {
-
+const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency, firstName, user, setUser} ) => {
+  
 
   // api data:
   const data = [
@@ -15,38 +17,52 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
   const handleSubmit = () => {
     if (selectedCurrency) {
     return navigation.navigate('Listings')
+    } 
+  }
+
+  const handleSubmitLogin = () => {
+    if (user.length <= 0) {
+      return navigation.navigate('Login')
+    } else {
+      return navigation.navigate('Account')
     }
   }
 
+  const handleSignOut = () => {
+    setUser([])
+  }
+
+  console.log(user);
+  
+
   return (
     
-    <View >
+    <View style={styles.container}>
+       <View>
+           <Header/>
           <Button
-            onPress={() => {
-              return navigation.navigate('Login')
-              
-            }}
-            title={"Login"}
+            onPress={handleSubmitLogin}
+            title={user.length <= 0 ? "Login" : "Profile"}
             />
              <Button
-            onPress={() => {
-              return navigation.navigate('Account')
-              
-            }}
-            title={"Profile"}
+            onPress={handleSignOut}
+            title={"Sign Out"}
             />
-    <Text style={styles.header}> nuHand </Text>
+        </View>
+    <View style={styles.content}>
     <Text> GBP to </Text>
-    <View style={styles.inputContainer}>
     <SelectList 
         setSelected={(val) => setSelectedCurrency(val)} 
         data={data} 
         save="value"
     />
-        </View>
     <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           <Text style={styles.buttonText}>Find Listings</Text>
       </TouchableOpacity>
+        </View>
+      <View >
+           <Footer navigation={navigation}/>
+        </View>
     </View>
   )
   }
@@ -54,8 +70,8 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
   export default HomeScreen;
 
  const styles = StyleSheet.create({
-  view: {
-    margin: 10,
+  container: {
+    flex: 1
   },
   header: {
     width: "100%",
@@ -84,8 +100,10 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
     fontWeight: "700",
     fontSize: 16,
   },
-  inputContainer: {
-    width: "100%",
+  content: {
+    alignItems: "stretch",
+    flex: 1
+
   },
   input: {
     backgroundColor: "white",
@@ -93,4 +111,5 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
-  },});
+  },
+});

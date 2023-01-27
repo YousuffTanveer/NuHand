@@ -16,54 +16,41 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-
-
-const LogInScreen = ({navigation, user, setUser}) => {
-  
+const LogInScreen = ({ navigation, user, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState(false)
-
+  const [err, setErr] = useState(false);
 
   
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // return navigation.navigate("Home");
-      } else {
-      }
-    });
-    return unsubscribe;
-  }, [user]);
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setUser(user)
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
   };
-
-  const handleLogIn = () => {
-    setErr(false)
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user)
-      })
-      .catch((error) => {
-       setErr(true)
-        
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  };
-
   
 
+  const handleLogIn = () => {
+    setErr(false);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {       
+        const user = userCredential.user;
+        navigation.navigate("Home");
+        setUser(user)
+      })
+      .catch((error) => {
+        setErr(true);
 
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -82,14 +69,20 @@ const LogInScreen = ({navigation, user, setUser}) => {
           secureTextEntry
         />
       </View>
-      {err ? <View><Text>Invalid details</Text></View> : null}
+      {err ? (
+        <View>
+          <Text>Invalid details</Text>
+        </View>
+      ) : null}
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleLogIn} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {return navigation.navigate("SignUp");}}
+          onPress={() => {
+            return navigation.navigate("SignUp");
+          }}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
