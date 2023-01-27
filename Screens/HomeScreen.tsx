@@ -28,6 +28,13 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
             }}
             title={"Login"}
             />
+             <Button
+            onPress={() => {
+              return navigation.navigate('Account')
+              
+            }}
+            title={"Profile"}
+            />
     <Text style={styles.header}> nuHand </Text>
     <Text> GBP to </Text>
     <View style={styles.inputContainer}>
@@ -78,7 +85,7 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency } ) => 
     fontSize: 16,
   },
   inputContainer: {
-    width: "40%",
+    width: "100%",
   },
   input: {
     backgroundColor: "white",
