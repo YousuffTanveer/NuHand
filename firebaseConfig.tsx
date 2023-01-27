@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 
-const colRef = collection(db, "listing");
+const colRef = collection(db, "listings");
 
 const auth = getAuth();
 
@@ -28,4 +28,4 @@ const getListings = getDocs(colRef).then((snapshot) => {
   return listings;
 });
 
-export { getListings, auth };
+export { getListings, auth, colRef };
