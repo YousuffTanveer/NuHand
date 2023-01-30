@@ -19,8 +19,7 @@ import {
 const LogInScreen = ({ navigation, user, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState(false);
-
+  const [err, setErr] = useState(false)
   
 
   const handleSignUp = () => {
@@ -40,9 +39,8 @@ const LogInScreen = ({ navigation, user, setUser }) => {
     setErr(false);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {       
-        const user = userCredential.user;
-        navigation.navigate("Home");
-        setUser(user)
+        setUser(userCredential.user)
+        return navigation.navigate("Home");
       })
       .catch((error) => {
         setErr(true);

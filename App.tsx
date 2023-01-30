@@ -49,7 +49,7 @@ const Stack = createNativeStackNavigator();
   {(props) => <AddListing {...props} user={user} addListing={AddListing}/>}
 </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: 'Account' }}>
-        {(props) => <Account {...props} user={user} />}
+        {(props) => <Account {...props} user={user} setUser={setUser} />}
         </Stack.Screen>
         <Stack.Screen name="SavedListings" options={{ title: 'SavedListings' }}>
         {(props) => <SavedListings {...props} user={user} />}
