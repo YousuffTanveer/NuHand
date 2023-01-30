@@ -24,6 +24,8 @@ type RootStackParamList = {
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
+  console.log(firstName);
+  
 
   const [user, setUser] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState("");

@@ -22,11 +22,11 @@ import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
     
-  // const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [location, setLocation] = useState("");
   
   const checkTextInput = () => {
     if (!firstName.trim() || !lastName.trim() || !number.trim() || !email.trim() || !password.trim()){
@@ -39,7 +39,7 @@ const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
 
   const handleSignUp = () => {
     checkTextInput()
-    addNewUser(email, firstName, lastName, number)
+    addNewUser(email, firstName, lastName, number, location)
     
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -73,6 +73,12 @@ const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
           keyboardType="numeric"
           value={number}
           onChangeText={(text) => setNumber(text)}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Location"
+          value={location}
+          onChangeText={(text) => setLocation(text)}
           style={styles.input}
         />
         <TextInput

@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import { Avatar, ListItem } from "@rneui/themed";
 
 const Account = ( {user, navigation, setUser} ) => {
+    console.log(user, "<<<< check");
+    
 
     const handleSignOut = () => {
         setUser([])
