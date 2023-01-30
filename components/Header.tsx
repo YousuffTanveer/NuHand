@@ -4,11 +4,18 @@ import React from 'react'
 const Header = () => {
   return (
     <View>
-      <Text> nuHand </Text>
+      <Text style={styles.header}> nuHand </Text>
     </View>
   )
 }
 
 export default Header
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  header: {
+    padding: 40,
+  alignItems: "center",
+  fontSize: 60
+},
+})
+

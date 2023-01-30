@@ -1,37 +1,44 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { Avatar, ListItem } from "@rneui/themed";
-import { UserOutlined, StarOutlined, UnorderedListOutlined } from "@ant-design/icons";
 
-const Account = ( {user, navigation} ) => {
+const Account = ( {user, navigation, setUser} ) => {
+
+    const handleSignOut = () => {
+        setUser([])
+        return navigation.navigate("Home")
+      }
+
+    console.log(user)
 
     return <View style={styles.containerStyle}>
         <View style={styles.profileElements}>
         <Avatar 
         size={100}
         rounded/>
-        <Text style={styles.userName}>{user.firstName} {user.lastName}</Text>
+        <Text style={styles.userName}>{user.first_name} {user.last_name}</Text>
         <Text style={styles.location}>Location</Text>
         </View>
         <View style={styles.listContainer}>
         <ListItem bottomDivider topDivider onPress={() => {return navigation.navigate('PersonalInfo')}}>
-            <UserOutlined/>
             <ListItem.Content>
             <ListItem.Title style={styles.menuOptions}>Personal Information</ListItem.Title>
             </ListItem.Content>
             </ListItem>
         <ListItem bottomDivider onPress={() => {return navigation.navigate('SavedListings')}}>
-        <StarOutlined />
             <ListItem.Content>
             <ListItem.Title style={styles.menuOptions}>Saved Listings</ListItem.Title>
             </ListItem.Content>
             </ListItem>
         <ListItem bottomDivider onPress={() => {return navigation.navigate('MyListings')}}>
-        <UnorderedListOutlined />
             <ListItem.Content>
             <ListItem.Title style={styles.menuOptions}>My Listings</ListItem.Title>
             </ListItem.Content>
             </ListItem>
         </View> 
+        <Button
+            onPress={handleSignOut}
+            title={"Sign Out"}
+            />
     </View>
 }
 

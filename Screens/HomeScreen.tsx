@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list'
+import { Avatar, ListItem } from "@rneui/themed";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -28,10 +29,6 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency, firstN
     }
   }
 
-  const handleSignOut = () => {
-    setUser([])
-  }
-
   console.log(user);
   
 
@@ -39,16 +36,14 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency, firstN
     
     <View style={styles.container}>
        <View>
-           <Header/>
-          <Button
+            <Avatar
+            size={60}
             onPress={handleSubmitLogin}
+            rounded
             title={user.length <= 0 ? "Login" : "Profile"}
             />
-             <Button
-            onPress={handleSignOut}
-            title={"Sign Out"}
-            />
         </View>
+        <Header/>
     <View style={styles.content}>
     <Text> GBP to </Text>
     <SelectList 
@@ -74,12 +69,8 @@ const HomeScreen = ( { navigation, selectedCurrency, setSelectedCurrency, firstN
     flex: 1
   },
   header: {
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    fontWeight: "700",
-    fontSize: 16,
+    padding: 40,
+  alignItems: "center",
   },
   button: {
     backgroundColor: "#0782f9",

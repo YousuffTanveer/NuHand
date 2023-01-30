@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import { ListItem, Avatar, Button } from "@rneui/themed";
-import { MessageOutlined, StarOutlined } from "@ant-design/icons";
 
 const ListingBox = ({ listing }) => {
   return (
@@ -19,12 +18,9 @@ const ListingBox = ({ listing }) => {
         </Text>
       </ListItem.Content>
       <View>
-        <Button radius={"sm"} type="solid" style={styles.button}>
-          <StarOutlined style={{ fontSize: "16px", color: "white" }} />
-        </Button>
-        <Button radius={"sm"} type="solid" style={styles.button}>
-          <MessageOutlined style={{ fontSize: "16px", color: "white" }} />
-        </Button>
+        <Button radius={"sm"} type="solid" style={styles.button} title="save"
+        />
+        <Button radius={"sm"} type="solid" style={styles.button} title="message" />
       </View>
     </ListItem>
   );
