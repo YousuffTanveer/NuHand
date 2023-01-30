@@ -9,6 +9,7 @@ import Listings from "./Screens/Listings";
 import Account from "./Screens/Account";
 import AddListing from "./Screens/AddListing";
 import Footer from "./components/Footer";
+import Messages from "./Screens/Messages";
 
 import PersonalInfo from "./Screens/PersonalInfo";
 import MyListings from "./Screens/MyListings";
@@ -58,7 +59,10 @@ const Stack = createNativeStackNavigator();
         </Stack.Screen>  
         <Stack.Screen name="MyListings" options={{ title: 'MyListings' }}>
         {(props) => <MyListings {...props} user={user} />}
-        </Stack.Screen>      
+        </Stack.Screen>  
+        <Stack.Screen name='Messages' options={{ title: 'Messages' }}>
+  {(props) => <Messages {...props}  />}
+  </Stack.Screen>    
       </Stack.Navigator>
     </NavigationContainer>
   );
