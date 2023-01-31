@@ -11,7 +11,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const Footer = ({navigation, user}) => {
-  console.log(user);
+  console.log(user.email);
   
 
   const handleAddListing = () => {

@@ -21,6 +21,8 @@ const AddListing: React.FC<Props> = ({
   user,
   setListings,
 }) => {
+    console.log(exchangeRates);
+    
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [exchangeAmount, setExchangeAmount] = useState("");
   const [equivalentGbp, setEquivalentGbp] = useState("");
