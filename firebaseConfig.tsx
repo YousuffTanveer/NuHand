@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, query, where, orderBy } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCSZn2n3Xxfn2EhPJeiYkH8ufSzBRU_l0s",
@@ -18,9 +19,13 @@ const db = getFirestore();
 
 const listingsRef = collection(db, "listings");
 
+
+
 const usersRef = collection(db, "users");
 
 const auth = getAuth();
+
+const storage = getStorage(app);
 
 const getListings = getDocs(listingsRef).then((snapshot) => {
   let listings: Array<any> = [];
@@ -49,4 +54,34 @@ const addNewUser = (email, first_name, last_name, number, location) => {
   });
 };
 
-export { auth, addNewUser, db, listingsRef, getListings, getUsers, usersRef };
+const addNewListing = (amount_from, amount_to, to, email) => {
+  addDoc(listingsRef, {
+    amount_from: amount_from,
+    amount_to: amount_to,
+    from: "GBP",
+    to: to,
+    created_by: email
+
+  });
+};
+
+const deleteListing = (id) => {
+  const deleteListingRef = doc(db, "listings", id)
+  deleteDoc(deleteListingRef)
+}
+
+const updateUser = (email, first_name, last_name, number, location, id) => {
+  const updateUserRef = doc(db, "users", id)
+  updateDoc(updateUserRef, {
+    email: email,
+    first_name: first_name,
+    last_name: last_name,
+    number: number,
+    location: location
+  });
+};
+
+
+const listingsQuery = query(listingsRef, where("to", "==", "EUR"), orderBy("amount_from", "desc"))
+
+export { auth, addNewUser, db, listingsRef, getListings, getUsers, usersRef, addNewListing, deleteListing, updateUser, listingsQuery, storage};

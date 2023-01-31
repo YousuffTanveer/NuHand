@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import { ListItem, Avatar, Button } from "@rneui/themed";
-import { getUsers } from "../firebaseConfig";
+import { getListings, deleteListing, getUsers } from '../firebaseConfig';
 import { useEffect, useState } from "react";
 
-const ListingBox = ({ listing }) => {
+const ListingBox = ({ listing, setListings }) => {
 
   const [seller, setSeller] = useState({first_name: "", last_name: "", location: ""});
 
@@ -17,6 +17,19 @@ const ListingBox = ({ listing }) => {
       });
     })
   }, [])
+
+
+  // const deleteButtonClick = () => {
+  //   setListings((currListings) => {
+  //   return currListings.filter((data) => {
+  //       if(listing.id !== data.id) {
+  //         return data
+  //       }
+  //     })
+  //   })
+  //   // setDeletedListing(listing.id)
+  //         deleteListing(listing.id)
+  // }
 
   return (
     <ListItem bottomDivider style={styles.containerStyle}>
@@ -37,6 +50,7 @@ const ListingBox = ({ listing }) => {
           style={styles.button}
           title="message"
         />
+        <Button radius={"sm"} type="solid" style={styles.button} title="delete" onPress={deleteButtonClick}/>
       </View>
     </ListItem>
   );

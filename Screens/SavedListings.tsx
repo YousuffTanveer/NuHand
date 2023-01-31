@@ -1,8 +1,14 @@
 import {Text} from 'react-native';
+import Footer from '../components/Footer'
 
-const SavedListings = () => {
-    return <Text> SavedListings </Text>
-     
+const SavedListings = ({navigation}) => {
+    return 
+    <View>
+    <Text> SavedListings </Text>
+    <View>
+        <Footer navigation={navigation} />
+      </View>
+     </View>
 }
 
 export default SavedListings
