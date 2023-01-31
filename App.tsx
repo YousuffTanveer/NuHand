@@ -24,11 +24,40 @@ type RootStackParamList = {
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
-  console.log(firstName);
-  
-
   const [user, setUser] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [exchangeRates, setExchangeRates] = useState({})
+  const [currencies, setCurrencies] = useState([{ key: "1", value: "AUD" },
+  { key: "2", value: "BGN" },
+  { key: "3", value: "BRL" },
+  { key: "4", value: "CAD" },
+  { key: "5", value: "CHF" },
+  { key: "6", value: "CNY" },
+  { key: "7", value: "CZK" },
+  { key: "8", value: "DKK" },
+  { key: "9", value: "EUR" },
+  { key: "10", value: "HKD" },
+  { key: "11", value: "HUF" },
+  { key: "12", value: "IDR" },
+  { key: "13", value: "ILS" },
+  { key: "14", value: "INR" },
+  { key: "15", value: "ISK" },
+  { key: "16", value: "JPY" },
+  { key: "17", value: "KRW" },
+  { key: "18", value: "MXN" },
+  { key: "19", value: "MYR" },
+  { key: "20", value: "NOK" },
+  { key: "21", value: "NZD" },
+  { key: "22", value: "PHP" },
+  { key: "23", value: "PLN" },
+  { key: "24", value: "RON" },
+  { key: "25", value: "SEK" },
+  { key: "26", value: "SGD" },
+  { key: "27", value: "THB" },
+  { key: "28", value: "TRY" },
+  { key: "29", value: "USD" },
+  { key: "30", value: "ZAR" },])
+  const [listings, setListings] = useState<any[]>([]);
 
   const Stack = createNativeStackNavigator();
 
@@ -47,6 +76,8 @@ export default function App() {
               firstName={firstName}
               user={user}
               setUser={setUser}
+              currencies={currencies}
+              setExchangeRates={setExchangeRates}
             />
           )}
         </Stack.Screen>
@@ -56,12 +87,13 @@ export default function App() {
               {...props}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
+              setListings={setListings}
             />
           )}
         </Stack.Screen>
         <Stack.Screen name="AddListing" options={{ title: "AddListing" }}>
           {(props) => (
-            <AddListing {...props} user={user} addListing={AddListing} />
+            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setMyListings={setMyListings}/>
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
@@ -74,7 +106,7 @@ export default function App() {
           {(props) => <PersonalInfo {...props} user={user} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user} />}
+          {(props) => <MyListings {...props} user={user} myListings={myListings} />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} />}

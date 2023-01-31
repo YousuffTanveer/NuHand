@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
+import Footer from '../components/Footer';
 
 const WelcomeScreen = ({navigation, firstName}) => {
   useEffect(() => {
@@ -17,6 +18,9 @@ const WelcomeScreen = ({navigation, firstName}) => {
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
         <Text>If page does not redirect click here</Text>
       </TouchableOpacity>
+      <View>
+        <Footer navigation={navigation} />
+      </View>
     </View>
   )
 }

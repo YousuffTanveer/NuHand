@@ -1,7 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
 import { ListItem, Avatar, Button } from "@rneui/themed";
+import { getListings, deleteListing } from '../firebaseConfig';
 
-const ListingBox = ({ listing }) => {
+const ListingBox = ({ listing, setListings }) => {
+
+  const deleteButtonClick = () => {
+    setListings((currListings) => {
+    return currListings.filter((data) => {
+        if(listing.id !== data.id) {
+          return data
+        }
+      })
+    })
+    // setDeletedListing(listing.id)
+          deleteListing(listing.id)
+  }
+  
+  
   return (
     <ListItem bottomDivider style={styles.containerStyle}>
       <Avatar
@@ -25,6 +40,7 @@ const ListingBox = ({ listing }) => {
           style={styles.button}
           title="message"
         />
+        <Button radius={"sm"} type="solid" style={styles.button} title="delete" onPress={deleteButtonClick}/>
       </View>
     </ListItem>
   );
