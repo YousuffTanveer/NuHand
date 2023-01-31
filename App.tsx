@@ -102,18 +102,19 @@ export default function App() {
               {...props}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
-              setListings={setListings}
               conversion={conversion}
               exchangeRate={exchangeRate}
               setExchangeRate={setExchangeRate}
               currencies={currencies}
+              setListings={setListings}
+              listings={listings}
 
             />
           )}
         </Stack.Screen>
         <Stack.Screen name="AddListing" options={{ title: "AddListing" }}>
           {(props) => (
-            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user}/>
+            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setListings={setListings}/>
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
@@ -126,7 +127,7 @@ export default function App() {
           {(props) => <PersonalInfo {...props} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user}  />}
+          {(props) => <MyListings {...props} user={user} listings={listings}  />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} />}

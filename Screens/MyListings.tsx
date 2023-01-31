@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 
 
-const MyListings = ({myListings}) => {
+const MyListings = ({listings}) => {
+    console.log(listings, "<<< listings");
+    
 
     // const deleteButtonClick = () => {
     //     setListings((currListings) => {

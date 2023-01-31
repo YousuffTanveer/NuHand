@@ -50,7 +50,7 @@ const ListingBox = ({ listing, setListings }) => {
           style={styles.button}
           title="message"
         />
-        <Button radius={"sm"} type="solid" style={styles.button} title="delete" onPress={deleteButtonClick}/>
+        <Button radius={"sm"} type="solid" style={styles.button} title="delete"/>
       </View>
     </ListItem>
   );

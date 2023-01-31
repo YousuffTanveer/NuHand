@@ -6,7 +6,7 @@ import { SelectList } from 'react-native-dropdown-select-list'
 import Footer from '../components/Footer';
 import { ListItem } from '@rneui/base';
 
-const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies }) => {
+const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies, setListings, listings }) => {
 
   interface conversionProps {
     amount: number;
@@ -14,7 +14,7 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
     date: string;
     rates: { [key: string]: number };
   }
-    const [listings, setListings] = useState<any[]>([]);
+
 
     useEffect(() => {
     getListings.then((listings) => {
