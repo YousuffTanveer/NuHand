@@ -24,11 +24,11 @@ type RootStackParamList = {
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
-  console.log(firstName);
-  
-
   const [user, setUser] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [userObject, setUserObject] = useState({})
+  const [conversion, setConversion] = useState<conversionProps | null>(null);
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
   const Stack = createNativeStackNavigator();
 
@@ -47,6 +47,11 @@ export default function App() {
               firstName={firstName}
               user={user}
               setUser={setUser}
+              setUserObject={setUserObject}
+              conversion={conversion}
+              setConversion={setConversion}
+              exchangeRate={exchangeRate}
+              setExchangeRate={setExchangeRate}
             />
           )}
         </Stack.Screen>
@@ -56,6 +61,10 @@ export default function App() {
               {...props}
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
+              conversion={conversion}
+              exchangeRate={exchangeRate}
+              setExchangeRate={setExchangeRate}
+
             />
           )}
         </Stack.Screen>
@@ -65,13 +74,13 @@ export default function App() {
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
-          {(props) => <Account {...props} user={user} setUser={setUser} />}
+          {(props) => <Account {...props} user={user} setUser={setUser} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="SavedListings" options={{ title: "SavedListings" }}>
           {(props) => <SavedListings {...props} user={user} />}
         </Stack.Screen>
         <Stack.Screen name="PersonalInfo" options={{ title: "PersonalInfo" }}>
-          {(props) => <PersonalInfo {...props} user={user} />}
+          {(props) => <PersonalInfo {...props} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
           {(props) => <MyListings {...props} user={user} />}
