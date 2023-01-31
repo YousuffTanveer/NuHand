@@ -15,8 +15,9 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getUsers } from '../firebaseConfig';
 
-const LogInScreen = ({ navigation, user, setUser }) => {
+const LogInScreen = ({ navigation, user, setUser, setUserObject }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false)
@@ -40,15 +41,15 @@ const LogInScreen = ({ navigation, user, setUser }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {       
         setUser(userCredential.user)
-        return navigation.navigate("Home");
+        return navigation.navigate("Home")
       })
       .catch((error) => {
         setErr(true);
 
         const errorCode = error.code;
         const errorMessage = error.message;
-      });
-  };
+      })
+    };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">

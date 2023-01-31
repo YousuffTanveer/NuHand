@@ -22,6 +22,13 @@ type RootStackParamList = {
   Home: undefined;
 };
 
+interface conversionProps {
+  amount: number;
+  base: string;
+  date: string;
+  rates: { [key: string]: number };
+}
+
 export default function App() {
   const [firstName, setFirstName] = useState("");
   const [user, setUser] = useState([]);
@@ -58,6 +65,9 @@ export default function App() {
   { key: "29", value: "USD" },
   { key: "30", value: "ZAR" },])
   const [listings, setListings] = useState<any[]>([]);
+  const [userObject, setUserObject] = useState({})
+  const [conversion, setConversion] = useState<conversionProps | null>(null);
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
   const Stack = createNativeStackNavigator();
 
@@ -78,6 +88,11 @@ export default function App() {
               setUser={setUser}
               currencies={currencies}
               setExchangeRates={setExchangeRates}
+              setUserObject={setUserObject}
+              conversion={conversion}
+              setConversion={setConversion}
+              exchangeRate={exchangeRate}
+              setExchangeRate={setExchangeRate}
             />
           )}
         </Stack.Screen>
@@ -88,25 +103,30 @@ export default function App() {
               selectedCurrency={selectedCurrency}
               setSelectedCurrency={setSelectedCurrency}
               setListings={setListings}
+              conversion={conversion}
+              exchangeRate={exchangeRate}
+              setExchangeRate={setExchangeRate}
+              currencies={currencies}
+
             />
           )}
         </Stack.Screen>
         <Stack.Screen name="AddListing" options={{ title: "AddListing" }}>
           {(props) => (
-            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setMyListings={setMyListings}/>
+            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user}/>
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
-          {(props) => <Account {...props} user={user} setUser={setUser} />}
+          {(props) => <Account {...props} user={user} setUser={setUser} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="SavedListings" options={{ title: "SavedListings" }}>
           {(props) => <SavedListings {...props} user={user} />}
         </Stack.Screen>
         <Stack.Screen name="PersonalInfo" options={{ title: "PersonalInfo" }}>
-          {(props) => <PersonalInfo {...props} user={user} />}
+          {(props) => <PersonalInfo {...props} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user} myListings={myListings} />}
+          {(props) => <MyListings {...props} user={user}  />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} />}

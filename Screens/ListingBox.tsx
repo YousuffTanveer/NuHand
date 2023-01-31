@@ -1,32 +1,42 @@
 import { View, Text, StyleSheet } from "react-native";
 import { ListItem, Avatar, Button } from "@rneui/themed";
-import { getListings, deleteListing } from '../firebaseConfig';
+import { getListings, deleteListing, getUsers } from '../firebaseConfig';
+import { useEffect, useState } from "react";
 
 const ListingBox = ({ listing, setListings }) => {
 
-  const deleteButtonClick = () => {
-    setListings((currListings) => {
-    return currListings.filter((data) => {
-        if(listing.id !== data.id) {
-          return data
+  const [seller, setSeller] = useState({first_name: "", last_name: "", location: ""});
+
+  useEffect(() => {
+    getUsers.then((users) => {
+      users.filter((thisUser) => {
+        
+        if (thisUser.email === listing.created_by) {
+          setSeller(thisUser)
         }
-      })
+      });
     })
-    // setDeletedListing(listing.id)
-          deleteListing(listing.id)
-  }
-  
-  
+  }, [])
+
+
+  // const deleteButtonClick = () => {
+  //   setListings((currListings) => {
+  //   return currListings.filter((data) => {
+  //       if(listing.id !== data.id) {
+  //         return data
+  //       }
+  //     })
+  //   })
+  //   // setDeletedListing(listing.id)
+  //         deleteListing(listing.id)
+  // }
+
   return (
     <ListItem bottomDivider style={styles.containerStyle}>
-      <Avatar
-        size={60}
-        rounded
-        source={{ uri: "https://randomuser.me/api/portraits/men/36.jpg" }}
-      />
-      <ListItem.Content>
-        <ListItem.Title style={{ padding: 2 }}>Name</ListItem.Title>
-        <ListItem.Subtitle style={{ padding: 2 }}>Location</ListItem.Subtitle>
+     <Avatar size={50} rounded></Avatar>
+      <ListItem.Content style={{flex: 1}}>
+        <ListItem.Title style={styles.name}>{seller.first_name} {seller.last_name}</ListItem.Title>
+        <ListItem.Subtitle style={{ padding: 2 }}>{seller.location}</ListItem.Subtitle>
         <Text style={{ padding: 5 }}>
           {listing.amount_from} {listing.from} to {listing.amount_to}{" "}
           {listing.to}
@@ -44,7 +54,7 @@ const ListingBox = ({ listing, setListings }) => {
       </View>
     </ListItem>
   );
-};
+}
 
 export default ListingBox;
 
@@ -55,6 +65,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   button: {
+    width: 50,
     padding: 2,
   },
+  name: {
+    fontSize: 16,
+    color: "black",
+    fontWeight: "bold"
+  }
 });

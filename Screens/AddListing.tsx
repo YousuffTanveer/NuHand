@@ -32,6 +32,9 @@ const AddListing: React.FC<Props> = ({
     }
   }, [selectedCurrency, exchangeAmount]);
 
+  console.log(exchangeRates);
+  
+
   const handleAddListing = () => {
     addNewListing(equivalentGbp, exchangeAmount, selectedCurrency, user.email);
     setMyListings((currListings) => {

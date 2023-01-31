@@ -3,6 +3,18 @@ import { View, Text, StyleSheet } from "react-native";
 
 const MyListings = ({myListings}) => {
 
+    // const deleteButtonClick = () => {
+    //     setListings((currListings) => {
+    //     return currListings.filter((data) => {
+    //         if(listing.id !== data.id) {
+    //           return data
+    //         }
+    //       })
+    //     })
+    //     // setDeletedListing(listing.id)
+    //           deleteListing(listing.id)
+    //   }
+
     return(
         <View>
             <Text>All listings</Text>

@@ -5,6 +5,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { Avatar, ListItem } from "@rneui/themed";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { getUsers } from '../firebaseConfig';
 
 const HomeScreen = ({
   navigation,
@@ -14,33 +15,39 @@ const HomeScreen = ({
   user,
   setUser,
   currencies,
-  setExchangeRates
+  setExchangeRates,
+  setUserObject,
+  conversion,
+  setConversion,
+  exchangeRate,
+  setExchangeRate
 }) => {
-
-  interface conversionProps {
-    amount: number;
-    base: string;
-    date: string;
-    rates: { [key: string]: number };
-  }
-
-  const [conversion, setConversion] = useState<conversionProps | null>(null);
-  const [conversionValue, setConversionValue] = useState<number | null>(null);
-
-
+  
   useEffect(() => {
     if (conversion !== null) {
       const value = conversion.rates[selectedCurrency];
-      setConversionValue(value);
+      setExchangeRate(value);
+
     }
   }, [selectedCurrency]);
+
+  useEffect(() => {
+    console.log(user)
+    getUsers.then((users) => {
+      users.filter((thisUser) => {
+        console.log(thisUser.email === user.email, "<<<<");
+      
+        if (thisUser.email === user.email) {
+          setUserObject(thisUser)
+        } 
+      });
+    })
+  }, [user]);
 
   useEffect(() => {
     axios
       .get("https://api.frankfurter.app/latest?from=GBP")
       .then((res) => {
-        console.log(res.data, "<<< res-data");
-        
         setExchangeRates(res.data.rates)
         setConversion(res.data)
       }).catch(err => {
@@ -48,7 +55,6 @@ const HomeScreen = ({
         
       })
   }, []);
-
 
   // api data:
 
@@ -78,11 +84,11 @@ const HomeScreen = ({
       </View>
       <Header />
       <View style={styles.content}>
-      {conversionValue && (
-        <Text>
-          1 Pound Coin = {conversionValue} {selectedCurrency}
-        </Text>
-      )}
+        {exchangeRate && (
+          <Text>
+            1 Pound Coin = {exchangeRate} {selectedCurrency}
+          </Text>
+        )}
         <SelectList
           setSelected={(val) => setSelectedCurrency(val)}
           data={currencies}
