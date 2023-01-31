@@ -5,7 +5,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { Avatar, ListItem } from "@rneui/themed";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { getUsers } from '../firebaseConfig';
+import { getUsers } from "../firebaseConfig";
 
 const HomeScreen = ({
   navigation,
@@ -14,11 +14,13 @@ const HomeScreen = ({
   firstName,
   user,
   setUser,
+  currencies,
+  setExchangeRates,
   setUserObject,
   conversion,
   setConversion,
   exchangeRate,
-  setExchangeRate
+  setExchangeRate,
 }) => {
   interface conversionProps {
     amount: number;
@@ -26,25 +28,25 @@ const HomeScreen = ({
     date: string;
     rates: { [key: string]: number };
   }
-  
+
   useEffect(() => {
     if (conversion !== null) {
       const value = conversion.rates[selectedCurrency];
       setExchangeRate(value);
-
     }
   }, [selectedCurrency]);
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     getUsers.then((users) => {
       users.filter((thisUser) => {
         if (thisUser.email === user.email) {
-          setUserObject(thisUser)
-        } else { setUserObject(null)
+          setUserObject(thisUser);
+        } else {
+          setUserObject(null);
         }
       });
-    })
+    });
   }, [user]);
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const HomeScreen = ({
       .get("https://api.frankfurter.app/latest?from=GBP")
       .then((res) => {
         setConversion(res.data);
+        setExchangeRates(res.data.rates);
       })
       .catch((err) => {
         console.log(err, "<<< error");
@@ -133,7 +136,7 @@ const HomeScreen = ({
         </TouchableOpacity>
       </View>
       <View>
-        <Footer navigation={navigation} />
+        <Footer navigation={navigation} user={user} />
       </View>
     </View>
   );

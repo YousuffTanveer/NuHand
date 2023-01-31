@@ -6,18 +6,9 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { ListItem } from "@rneui/base";
 import Footer from '../components/Footer';
 
-const Listings = ({
-  navigation,
-  selectedCurrency,
-  setSelectedCurrency,
-  conversion,
-  exchangeRate,
-  setExchangeRate,
-  user,
-  currencies
-}) => {
+const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies, user, setListings, listings }) => {
 
-  const [listings, setListings] = useState<any[]>([]);
+
 
   useEffect(() => {
     getListings.then((listings) => {
@@ -58,7 +49,7 @@ const Listings = ({
         })}
       </ScrollView>
        <View>
-        <Footer navigation={navigation} />
+        <Footer navigation={navigation} user={user} />
       </View>
     </View>
   );
