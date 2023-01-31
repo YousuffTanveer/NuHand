@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LogInScreen from "./Screens/LogInScreen";
@@ -34,7 +34,7 @@ export default function App() {
   const [user, setUser] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [exchangeRates, setExchangeRates] = useState({})
-  const [currencies, setCurrencies] = useState([{ key: "1", value: "AUD" },
+  const currencies = [{ key: "1", value: "AUD" },
   { key: "2", value: "BGN" },
   { key: "3", value: "BRL" },
   { key: "4", value: "CAD" },
@@ -63,7 +63,7 @@ export default function App() {
   { key: "27", value: "THB" },
   { key: "28", value: "TRY" },
   { key: "29", value: "USD" },
-  { key: "30", value: "ZAR" },])
+  { key: "30", value: "ZAR" },]
   const [listings, setListings] = useState<any[]>([]);
   const [userObject, setUserObject] = useState({})
   const [conversion, setConversion] = useState<conversionProps | null>(null);
@@ -107,6 +107,7 @@ export default function App() {
               exchangeRate={exchangeRate}
               setExchangeRate={setExchangeRate}
               currencies={currencies}
+              user={user}
 
             />
           )}
@@ -126,7 +127,7 @@ export default function App() {
           {(props) => <PersonalInfo {...props} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user}  />}
+          {(props) => <MyListings {...props} user={user} />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} />}
