@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import React, { useEffect } from 'react'
 import Footer from '../components/Footer';
+import { Avatar} from "@rneui/themed";
 
-const WelcomeScreen = ({navigation, firstName}) => {
+const WelcomeScreen = ({navigation, firstName, imageUrl}) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       navigation.navigate('Home');
@@ -12,6 +13,12 @@ const WelcomeScreen = ({navigation, firstName}) => {
 
   return (
     <View>
+       <Avatar
+          size={60}
+          rounded
+          source={ imageUrl? {uri: imageUrl} : {uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}
+          title={"Avatar"}
+        />
       <Text>WelcomeScreen</Text>
       <Text>Hello, {firstName}</Text>
       <Text>Your account was successfully created!</Text>

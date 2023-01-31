@@ -20,7 +20,9 @@ const HomeScreen = ({
   conversion,
   setConversion,
   exchangeRate,
-  setExchangeRate
+  setExchangeRate,
+  imageUrl,
+  setImageUrl
 }) => {
   
   useEffect(() => {
@@ -79,6 +81,7 @@ const HomeScreen = ({
           size={60}
           onPress={handleSubmitLogin}
           rounded
+          source={ imageUrl? {uri: imageUrl} : {uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}
           title={user.length <= 0 ? "Login" : "Profile"}
         />
       </View>

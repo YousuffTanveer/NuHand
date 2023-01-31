@@ -1,69 +1,79 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView, Alert, Image} from "react-native";
 import { Avatar, ListItem } from "@rneui/themed";
 import React from 'react'
 import Footer from '../components/Footer'
 import { useState, useEffect } from "react";
-import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, listAll, getDownloadURL, getStorage } from "firebase/storage";
 import { storage } from '../firebaseConfig';
+import * as ImagePicker from "expo-image-picker"
+import { firebaseConfig } from "../firebaseConfig";
 
-const Account = ( {user, navigation, setUser, userObject} ) => {
-    console.log(userObject, "<<< USER-OBJ");
+const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUrl, setImageUrl} ) => {
+
+ 
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      // quality: 1,
+    });
     
-    const [image, setImage] = useState<File>();
-  const [imageList, setImageList] = useState([]);
+    const storageRef = ref(storage, `${userObject.id}`);
+    if (!result.canceled) {
+      console.log(result);
+      console.log(result.uri, "<<<<<uri")
+      const img = await fetch(result.uri)
+      const bytes = await img.blob()
 
-//   useEffect(() => {
-//     const listRef = ref(storage, `image/`);
-//     listAll(listRef)
-//     .then((res) => {
-//       res.items.forEach((itemRef) => {
-//         getDownloadURL(itemRef).then((url) => {
-//           setImageList((prev) => [...prev, url])
-//         })
-//       });
-//     }).catch((error) => {
-//       console.log(error)
-//     });
-//   }, [])
+    uploadBytes(storageRef, bytes).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    }).catch((err) => {
+      console.log(err)
+    })
+    } else {
+      alert('You did not select any image.');
+    }
+  };
 
-//   const submitImage = () => {
-//     const storageRef = ref(storage, 'image');
-//     uploadBytes(storageRef, image as Blob).then((snapshot) => {
-//       console.log('Uploaded a blob or file!');
-//     }).catch((err) => {
-//       console.log(err)
-//     })
-//   }
-//   const handleChange = (e) => {
-//    if(e.target.files[0]) {
-//     setImage(e.target.files[0])
-//    }
-//   }
+  useEffect(() => {
+    const func = async () => {
+      const imageRef = ref(storage, `/${userObject.id}`)
+      await getDownloadURL(imageRef).then((x) => {
+        console.log(imageRef, "<<<< imageRef")
+        setImageUrl(x)
+      //   setUserObject(prev => ({
+      //     ...prev,
+      //     profile_image: imageUrl
+      //  }));
+      })
+     }
+     func()
+  }, [imageUrl, userObject.profile_image])
+  console.log(imageUrl)
+  console.log(userObject.profile_image, "<<<<< profile image")
 
-
-  
+  console.log(userObject)
+ const profileImage = userObject.profile_image
   const handleSignOut = () => {
     setUser([]);
+    setImageUrl('');
     return navigation.navigate("Home");
   };
 
   return (
     <View style={styles.containerStyle}>
       <View style={styles.profileElements}>
-        {userObject.profile_image ? (
+        {imageUrl ? (
           <View>
-          <Avatar size={50} rounded source={userObject.profile_image}></Avatar>
-          <input type="file" onChange={handleChange}/>
-      <Button title="Upload Avatar" onPress={submitImage}/>
-      {imageList.map((url) => {
-        return <img width="100px" height="100px" src={url}/>;
-      })}
-          <Text>change image</Text>
+          <Avatar size={100} rounded source={{uri: imageUrl}}></Avatar>
+          <Button title={"change image"} onPress={pickImageAsync}/>
           </View>
         ) : (
           <View>
-            <Avatar size={50} rounded></Avatar>
-            <Button title={"add profile image"}></Button>
+            <Avatar size={100} title="avatar" rounded source={{
+               uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}></Avatar>
+            <Button title={"add profile image"} onPress={pickImageAsync}/>
+            {/* <Button  title="Choose a photo" onPress={pickImageAsync} /> */}
           </View>
         )}
         <Text style={styles.userName}>
