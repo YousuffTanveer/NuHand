@@ -16,7 +16,6 @@ const Footer = ({navigation}) => {
 
     // const [index, setIndex] = React.useState(0);
 
-    console.log(navigation, "<<<< navigation")
 
 return (
   <View style={styles.tabContainer}>
