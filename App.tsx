@@ -68,6 +68,7 @@ export default function App() {
   const [userObject, setUserObject] = useState({})
   const [conversion, setConversion] = useState<conversionProps | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [imageUrl, setImageUrl] = useState("")
 
   const Stack = createNativeStackNavigator();
 
@@ -75,7 +76,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" options={{ title: "Login" }}>
-          {(props) => <LogInScreen {...props} user={user} setUser={setUser} />}
+          {(props) => <LogInScreen {...props} user={user} setUser={setUser} setImageUrl={setImageUrl}/>}
         </Stack.Screen>
         <Stack.Screen name="Home" options={{ title: "Home" }}>
           {(props) => (
@@ -93,6 +94,8 @@ export default function App() {
               setConversion={setConversion}
               exchangeRate={exchangeRate}
               setExchangeRate={setExchangeRate}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
             />
           )}
         </Stack.Screen>
@@ -119,13 +122,13 @@ export default function App() {
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
-          {(props) => <Account {...props} user={user} setUser={setUser} userObject={userObject} />}
+          {(props) => <Account {...props} user={user} setUser={setUser} userObject={userObject} setUserObject={setUserObject} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
         </Stack.Screen>
         <Stack.Screen name="SavedListings" options={{ title: "SavedListings" }}>
-          {(props) => <SavedListings {...props} user={user} />}
+          {(props) => <SavedListings {...props} user={user} imageUrl={imageUrl}/>}
         </Stack.Screen>
         <Stack.Screen name="PersonalInfo" options={{ title: "PersonalInfo" }}>
-          {(props) => <PersonalInfo {...props} userObject={userObject} />}
+          {(props) => <PersonalInfo {...props} userObject={userObject} imageUrl={imageUrl} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
           {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} />}
@@ -143,7 +146,7 @@ export default function App() {
           )}
         </Stack.Screen>
         <Stack.Screen name="Welcome" options={{ title: "Welcome" }}>
-          {(props) => <WelcomeScreen {...props} firstName={firstName} />}
+          {(props) => <WelcomeScreen {...props} firstName={firstName} imageUrl={imageUrl} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

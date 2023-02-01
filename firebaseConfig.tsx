@@ -84,4 +84,4 @@ const updateUser = (email, first_name, last_name, number, location, id) => {
 
 const listingsQuery = query(listingsRef, where("to", "==", "EUR"), orderBy("amount_from", "desc"))
 
-export { auth, addNewUser, db, listingsRef, getListings, getUsers, usersRef, addNewListing, deleteListing, updateUser, listingsQuery, storage};
+export { auth, addNewUser, db, listingsRef, getListings, getUsers, usersRef, addNewListing, deleteListing, updateUser, listingsQuery, storage, firebaseConfig};

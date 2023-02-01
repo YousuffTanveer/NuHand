@@ -21,14 +21,9 @@ const HomeScreen = ({
   setConversion,
   exchangeRate,
   setExchangeRate,
+  imageUrl,
+  setImageUrl
 }) => {
-  interface conversionProps {
-    amount: number;
-    base: string;
-    date: string;
-    rates: { [key: string]: number };
-  }
-
   useEffect(() => {
     if (conversion !== null) {
       const value = conversion.rates[selectedCurrency];
@@ -113,6 +108,7 @@ const HomeScreen = ({
           size={60}
           onPress={handleSubmitLogin}
           rounded
+          source={ imageUrl? {uri: imageUrl} : {uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}
           title={user.length <= 0 ? "Login" : "Profile"}
         />
       </View>

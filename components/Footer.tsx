@@ -70,8 +70,17 @@ const styles = StyleSheet.create({
   
   
 // },
+// tabContainer: {
+//   flexDirection: "row" ,
+//   justifyContent: 'space-evenly',
+//   borderTopWidth: 1,
+//   backgroundColor: "blue",
+//   color: "blue",
+//   padding: 0,
+//   margin: 0
+// },
 tabContainer: {
-  flex: 1,
+  // flex: 1,
   flexDirection: "row",
   justifyContent: "space-around",
   height: 50,

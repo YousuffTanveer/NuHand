@@ -1,23 +1,25 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Avatar, ListItem } from "@rneui/themed";
 
-const PersonalInfo = ({ userObject }) => {
+const PersonalInfo = ({ userObject, imageUrl }) => {
+  console.log(imageUrl)
   return (
     <View style={styles.containerStyle}>
       <ListItem style={styles.avatar}>
-        {userObject.profile_image ? (
+        {imageUrl ? (
           <View>
             <Avatar
-              size={50}
+              size={100}
               rounded
-              source={userObject.profile_image}
+              source={{uri: imageUrl}}
             ></Avatar>
-            <Text>change image</Text>
+            {/* <Text>change image</Text> */}
           </View>
         ) : (
           <View>
-            <Avatar size={50} rounded></Avatar>
-            <Button title={"add profile image"}></Button>
+            <Avatar size={100} rounded source={{
+               uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}></Avatar>
+            {/* <Button title={"add profile image"}></Button> */}
           </View>
         )}
       </ListItem>
