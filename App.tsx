@@ -71,6 +71,7 @@ export default function App() {
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState("")
   const [newListing, setNewListing] = useState({})
+  const [userCoords, setUserCoords] = useState([])
 
   const Stack = createNativeStackNavigator();
 
@@ -78,7 +79,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Login" options={{ title: "Login" }}>
-          {(props) => <LogInScreen {...props} user={user} setUser={setUser} setImageUrl={setImageUrl}/>}
+          {(props) => <LogInScreen {...props} user={user} setUser={setUser} setImageUrl={setImageUrl} setUserCoords={setUserCoords}/>}
         </Stack.Screen>
         <Stack.Screen name="Home" options={{ title: "Home" }}>
           {(props) => (
@@ -98,6 +99,7 @@ export default function App() {
               setExchangeRate={setExchangeRate}
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
+              userCoords={userCoords}
             />
           )}
         </Stack.Screen>
@@ -114,13 +116,14 @@ export default function App() {
               user={user}
               setListings={setListings}
               listings={listings}
+              userCoords={userCoords}
 
             />
           )}
         </Stack.Screen>
         <Stack.Screen name="AddListing" options={{ title: "AddListing" }}>
           {(props) => (
-            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setListings={setListings} setNewListing={setNewListing}/>
+            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setListings={setListings} setNewListing={setNewListing} userCoords={userCoords}/>
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
@@ -136,7 +139,7 @@ export default function App() {
           {(props) => <PersonalInfo {...props} userObject={userObject} imageUrl={imageUrl} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} newListing={newListing} />}
+          {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} newListing={newListing} userCoords={userCoords} />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} user={user}/>}

@@ -12,9 +12,7 @@ import { BorderVerticleOutlined } from '@ant-design/icons';
 
 
 const Footer = ({navigation, user}) => {
-  console.log(user.email);
   
-
   const handleAddListing = () => {
     if(user.hasOwnProperty("email")) {
       return navigation.navigate("AddListing")

@@ -9,12 +9,38 @@ import {
 import { useEffect, useState } from "react";
 import { color } from "@rneui/base";
 
-const ListingBox = ({ listing, setListings, user, navigation }) => {
+const ListingBox = ({ listing, setListings, user, userCoords, navigation }) => {
   const [seller, setSeller] = useState({
     first_name: "",
     last_name: "",
     location: "",
   });
+
+  console.log(listing.coords);
+
+const findDistance = () => {
+  if (listing.coords) {
+  const lat1 = userCoords[0]
+  const lat2 = listing.coords[0];
+  const lon1 = userCoords[1]
+  const lon2 = listing.coords[1];
+
+  const x = (lon2-lon1) * Math.cos((lat1+lat2)/2);
+  const y = (lat2-lat1);
+  const d = Math.sqrt(x*x + y*y) * 6371000;
+  console.log(typeof d)
+  return (d*0.000621371).toFixed(1); // in metres
+  }
+}
+const distance = findDistance()
+const distanceText = ((distance) => {
+  if (distance === "NaN" || distance === undefined) {
+    return null;
+  }
+    else if (distance < 1) {
+      return "less than a mile away"
+    } else return `Approx. ${distance} miles away`
+    })
 
   useEffect(() => {
     getUsers.then((users) => {
@@ -25,7 +51,6 @@ const ListingBox = ({ listing, setListings, user, navigation }) => {
       });
     });
   }, []);
-
   const deleteButtonClick = () => {
     setListings((currListings) => {
       return currListings.filter((data) => {
@@ -52,7 +77,11 @@ const ListingBox = ({ listing, setListings, user, navigation }) => {
           <ListItem.Subtitle style={styles.location}>
             {seller.location}
           </ListItem.Subtitle>
-          <ListItem.Subtitle>... miles away</ListItem.Subtitle>
+          {listing.created_by === user.email ? null : (
+            <ListItem.Subtitle>
+              {distanceText(distance)}
+            </ListItem.Subtitle>
+          )}
         </ListItem.Content>
         <ListItem.Content style={styles.exchange}>
           <ListItem.Title style={styles.amount}>
@@ -95,7 +124,6 @@ const ListingBox = ({ listing, setListings, user, navigation }) => {
       </View>
         </ListItem.Content>
       </ListItem>
-      
     </View>
   );
 };
@@ -115,7 +143,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 45,
-    padding: 5
+    padding: 5,
   },
   details: {
     alignSelf: "baseline",
@@ -135,17 +163,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "black",
     padding: 2,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   location: {
     fontSize: 14,
     color: "black",
-    padding: 2
+    padding: 2,
   },
   asking: {
     fontSize: 16,
     color: "orange",
     padding: 2,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
