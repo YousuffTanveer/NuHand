@@ -69,6 +69,7 @@ export default function App() {
   const [conversion, setConversion] = useState<conversionProps | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [imageUrl, setImageUrl] = useState("")
+  const [newListing, setNewListing] = useState({})
 
   const Stack = createNativeStackNavigator();
 
@@ -118,7 +119,7 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="AddListing" options={{ title: "AddListing" }}>
           {(props) => (
-            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setListings={setListings}/>
+            <AddListing {...props} currencies={currencies} exchangeRates={exchangeRates} user={user} setListings={setListings} setNewListing={setNewListing}/>
           )}
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
@@ -131,7 +132,7 @@ export default function App() {
           {(props) => <PersonalInfo {...props} userObject={userObject} imageUrl={imageUrl} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} />}
+          {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} newListing={newListing} />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
           {(props) => <Messages {...props} user={user}/>}

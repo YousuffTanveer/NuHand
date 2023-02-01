@@ -28,7 +28,6 @@ const ListingBox = ({ listing, setListings, user }) => {
 
   const deleteButtonClick = () => {
     setListings((currListings) => {
-      console.log(currListings);
       return currListings.filter((data) => {
         if (listing.id !== data.id) {
           return data;

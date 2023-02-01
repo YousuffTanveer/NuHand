@@ -20,8 +20,8 @@ const AddListing: React.FC<Props> = ({
   exchangeRates,
   user,
   setListings,
+  setNewListing,
 }) => {
-    console.log(exchangeRates);
     
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [exchangeAmount, setExchangeAmount] = useState("");
@@ -39,23 +39,16 @@ const AddListing: React.FC<Props> = ({
     }
   }, [selectedCurrency, exchangeAmount, roundedToggle]);
 
-  console.log(exchangeRates);
 
   const handleAddListing = () => {
     const gbpAmount = roundedToggle ? roundedGbp : equivalentGbp;
-    // setListings((currListings) => {
-        
-    //   return [
-    //     ...currListings,
-    //     {
-    //       amount_from: gbpAmount,
-    //       amount_to: exchangeAmount,
-    //       from: "GBP",
-    //       to: selectedCurrency,
-    //       created_by: user.email,
-    //     },
-    //   ];
-    // });
+    setNewListing({
+        amount_from: gbpAmount,
+        amount_to: exchangeAmount,
+        from: "GBP",
+        to: selectedCurrency,
+        created_by: user.email,
+      });
     addNewListing(gbpAmount, exchangeAmount, selectedCurrency, user.email);
     setSelectedCurrency("");
     setExchangeAmount("");

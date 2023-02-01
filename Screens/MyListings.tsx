@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import ListingBox from "./ListingBox";
 
-const MyListings = ({ user, setListings, listings, navigation }) => {
+const MyListings = ({ user, setListings, listings, newListing, navigation }) => {
     
   useEffect(() => {
     getListings.then((listings) => {
@@ -14,12 +14,13 @@ const MyListings = ({ user, setListings, listings, navigation }) => {
           if (user.email === myListing.created_by) {
             return myListing
         }
-      });      
+      });
+      filteredListing.push(newListing)   
       setListings(filteredListing)
     });
 
     
-  }, []);
+  }, [newListing]);
 
   // const deleteButtonClick = () => {
   //     setListings((currListings) => {
@@ -38,7 +39,7 @@ const MyListings = ({ user, setListings, listings, navigation }) => {
       <ScrollView style={styles.listContainer}>
         {listings.map((listing) => {
 
-          return <ListingBox listing={listing} user={user} setListings={setListings}/>;
+          return <ListingBox listing={listing} user={user} setListings={setListings} />;
         })}
       </ScrollView>
        <View>
