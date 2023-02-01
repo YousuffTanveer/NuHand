@@ -1,18 +1,26 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
-import React from 'react'
 import Footer from '../components/Footer'
 import { updateUser } from '../firebaseConfig'
+import React, { useState, useEffect } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 
-const Messages = ({navigation}) => {
+const Messages = ({navigation, user}) => {
+
+
+  const [messages, setMessages] = useState([]);
+
 
   return (
-    <View>
-      <Text>Messages</Text>
-      <View>
-        <Footer navigation={navigation} />
-      </View>
-    </View>
+    <GiftedChat
+      messages={messages}
+      onSend={(newMessage) => {
+        // Save the new message to Firebase
+      }}
+      user={{
+        _id: 1,
+      }}
+    />
   )
 }
 

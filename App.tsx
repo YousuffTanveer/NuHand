@@ -128,10 +128,10 @@ export default function App() {
           {(props) => <PersonalInfo {...props} userObject={userObject} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
-          {(props) => <MyListings {...props} user={user} listings={listings}  />}
+          {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} />}
         </Stack.Screen>
         <Stack.Screen name="Messages" options={{ title: "Messages" }}>
-          {(props) => <Messages {...props} />}
+          {(props) => <Messages {...props} user={user}/>}
         </Stack.Screen>
         <Stack.Screen name="SignUp" options={{ title: "SignUp" }}>
           {(props) => (

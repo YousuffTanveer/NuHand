@@ -12,12 +12,15 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
 
   useEffect(() => {
     getListings.then((listings) => {
+      
       let filteredListings: Array<{}> = [];
       listings.filter((listing) => {
         if (listing.to === selectedCurrency) {
           filteredListings.push(listing);
         }
       });
+      console.log(filteredListings, "<<<<<<<<<<<");
+      
       setListings(filteredListings);
     });
   }, [selectedCurrency]);
