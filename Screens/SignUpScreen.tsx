@@ -44,8 +44,6 @@ const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUr
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser(user)
-        setImageUrl("")
       })
       .catch((error) => {
         const errorCode = error.code;

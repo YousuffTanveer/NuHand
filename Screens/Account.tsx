@@ -77,7 +77,6 @@ const Account = ({
   const handleSignOut = () => {
     setUser([]);
     setImageUrl("");
-    setUserObject({})
     return navigation.navigate("Home");
   };
 console.log(userObject, "<<<<<< userObject Account")
