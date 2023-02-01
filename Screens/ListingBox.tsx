@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { color } from "@rneui/base";
 
-const ListingBox = ({ listing, setListings, user, userCoords }) => {
+const ListingBox = ({ listing, setListings, user, userCoords, navigation }) => {
   const [seller, setSeller] = useState({
     first_name: "",
     last_name: "",
@@ -63,6 +63,10 @@ const distanceText = ((distance) => {
     deleteListing(listing.id);
   };
 
+  const messageButtonClick = () => {
+    return navigation.navigate("Messages")
+  }
+
   return (
     <View>
       <ListItem bottomDivider style={styles.containerStyle}>
@@ -87,34 +91,37 @@ const distanceText = ((distance) => {
             {listing.amount_from} {listing.from}
           </ListItem.Subtitle>
           <View style={styles.buttonContainer}>
-            {listing.created_by === user.email ? null : (
-              <Button
-                radius={"sm"}
-                type="solid"
-                color={"grey"}
-                style={styles.button}
-                title="M"
-              />
-            )}
-            {listing.created_by === user.email ? (
-              <Button
-                radius={"sm"}
-                type="solid"
-                style={styles.button}
-                color={"red"}
-                title="D"
-                onPress={deleteButtonClick}
-              />
-            ) : (
-              <Button
-                radius={"sm"}
-                type="solid"
-                color={"orange"}
-                style={styles.button}
-                title="S"
-              />
-            )}
-          </View>
+        {listing.created_by === user.email ? (
+          null
+        ) : (
+          <Button
+          radius={"sm"}
+          type="solid"
+          color={"grey"}
+          style={styles.button}
+          title="M"
+          onPress={messageButtonClick}
+        />
+        )}
+        {listing.created_by === user.email ? (
+          <Button
+            radius={"sm"}
+            type="solid"
+            style={styles.button}
+            color={"red"}
+            title="D"
+            onPress={deleteButtonClick}
+          />
+        ) : (
+          <Button
+            radius={"sm"}
+            type="solid"
+            color={"orange"}
+            style={styles.button}
+            title="S"
+          />
+        )}
+      </View>
         </ListItem.Content>
       </ListItem>
     </View>

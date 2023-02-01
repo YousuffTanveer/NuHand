@@ -26,7 +26,7 @@ const Footer = ({navigation, user}) => {
   }
   const handleMessages = () => {
     if(user.hasOwnProperty("email")) {
-      return navigation.navigate("Messages")
+      return navigation.navigate("AllMessages")
     } else {
       alert("You must sign in to check messages!")
     }
