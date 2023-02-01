@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Switch,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { addNewListing } from "../firebaseConfig";
@@ -18,40 +19,49 @@ const AddListing: React.FC<Props> = ({
   currencies,
   exchangeRates,
   user,
-  setMyListings,
+  setListings,
 }) => {
+    console.log(exchangeRates);
+    
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [exchangeAmount, setExchangeAmount] = useState("");
   const [equivalentGbp, setEquivalentGbp] = useState("");
+  const [roundedGbp, setRoundedGbp] = useState("");
+  const [roundedToggle, setRoundedToggle] = useState(false);
 
   useEffect(() => {
     if (selectedCurrency && exchangeAmount) {
-      setEquivalentGbp(
-        (exchangeAmount / exchangeRates[selectedCurrency]).toFixed(2)
-      );
+      const unroundedGbp = (
+        exchangeAmount / exchangeRates[selectedCurrency]
+      ).toFixed(2);
+      setEquivalentGbp(unroundedGbp);
+      setRoundedGbp(roundedToggle ? Math.round(unroundedGbp) : unroundedGbp);
     }
-  }, [selectedCurrency, exchangeAmount]);
+  }, [selectedCurrency, exchangeAmount, roundedToggle]);
 
   console.log(exchangeRates);
-  
 
   const handleAddListing = () => {
-    addNewListing(equivalentGbp, exchangeAmount, selectedCurrency, user.email);
-    setMyListings((currListings) => {
-      return [
-        ...currListings,
-        {
-          amount_from: equivalentGbp,
-          amount_to: exchangeAmount,
-          from: "GBP",
-          to: selectedCurrency,
-          created_by: user.email,
-        },
-      ];
-    });
+    const gbpAmount = roundedToggle ? roundedGbp : equivalentGbp;
+    // setListings((currListings) => {
+        
+    //   return [
+    //     ...currListings,
+    //     {
+    //       amount_from: gbpAmount,
+    //       amount_to: exchangeAmount,
+    //       from: "GBP",
+    //       to: selectedCurrency,
+    //       created_by: user.email,
+    //     },
+    //   ];
+    // });
+    addNewListing(gbpAmount, exchangeAmount, selectedCurrency, user.email);
     setSelectedCurrency("");
     setExchangeAmount("");
     setEquivalentGbp("");
+    setRoundedGbp("");
+    setRoundedToggle(false);
     return navigation.navigate("MyListings");
   };
 
@@ -78,8 +88,13 @@ const AddListing: React.FC<Props> = ({
             <>
               <Text style={styles.label}>
                 {exchangeAmount} {selectedCurrency} is equivalent to{" "}
-                {equivalentGbp} GBP
+                {roundedToggle ? roundedGbp : equivalentGbp} GBP
               </Text>
+              <Text style={styles.label}>Round equivalent GBP?</Text>
+              <Switch
+                value={roundedToggle}
+                onValueChange={(value) => setRoundedToggle(value)}
+              />
             </>
           )}
         </>

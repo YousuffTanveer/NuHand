@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Avatar, ListItem } from "@rneui/themed";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { getUsers } from '../firebaseConfig';
+import { getUsers } from "../firebaseConfig";
 
 const HomeScreen = ({
   navigation,
@@ -24,41 +24,68 @@ const HomeScreen = ({
   imageUrl,
   setImageUrl
 }) => {
-  console.log(imageUrl, '<<<<<imageUrl Home')
   useEffect(() => {
     if (conversion !== null) {
       const value = conversion.rates[selectedCurrency];
       setExchangeRate(value);
-
     }
   }, [selectedCurrency]);
 
   useEffect(() => {
-    console.log(user)
     getUsers.then((users) => {
       users.filter((thisUser) => {
-        console.log(thisUser.email === user.email, "<<<<");
-      
         if (thisUser.email === user.email) {
-          setUserObject(thisUser)
-        } 
+          setUserObject(thisUser);
+        }
       });
-    })
+    });
   }, [user]);
 
   useEffect(() => {
     axios
       .get("https://api.frankfurter.app/latest?from=GBP")
-      .then((res) => {
-        setExchangeRates(res.data.rates)
-        setConversion(res.data)
-      }).catch(err => {
-        console.log(err, "<<< error");
-        
+      .then((res) => {        
+        setConversion(res.data);
+        setExchangeRates(res.data.rates);
       })
+      .catch((err) => {
+        console.log(err, "<<< error");
+      });
   }, []);
 
   // api data:
+  const data = [
+    { key: "1", value: "AUD" },
+    { key: "2", value: "BGN" },
+    { key: "3", value: "BRL" },
+    { key: "4", value: "CAD" },
+    { key: "5", value: "CHF" },
+    { key: "6", value: "CNY" },
+    { key: "7", value: "CZK" },
+    { key: "8", value: "DKK" },
+    { key: "9", value: "EUR" },
+    { key: "10", value: "HKD" },
+    { key: "11", value: "HUF" },
+    { key: "12", value: "IDR" },
+    { key: "13", value: "ILS" },
+    { key: "14", value: "INR" },
+    { key: "15", value: "ISK" },
+    { key: "16", value: "JPY" },
+    { key: "17", value: "KRW" },
+    { key: "18", value: "MXN" },
+    { key: "19", value: "MYR" },
+    { key: "20", value: "NOK" },
+    { key: "21", value: "NZD" },
+    { key: "22", value: "PHP" },
+    { key: "23", value: "PLN" },
+    { key: "24", value: "RON" },
+    { key: "25", value: "SEK" },
+    { key: "26", value: "SGD" },
+    { key: "27", value: "THB" },
+    { key: "28", value: "TRY" },
+    { key: "29", value: "USD" },
+    { key: "30", value: "ZAR" },
+  ];
 
   const handleSubmit = () => {
     if (selectedCurrency) {
@@ -88,13 +115,13 @@ const HomeScreen = ({
       <Header />
       <View style={styles.content}>
         {exchangeRate && (
-          <Text>
+          <Text style={styles.exchangeText}>
             1 Pound Coin = {exchangeRate} {selectedCurrency}
           </Text>
         )}
         <SelectList
           setSelected={(val) => setSelectedCurrency(val)}
-          data={currencies}
+          data={data}
           save="value"
         />
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
@@ -102,7 +129,7 @@ const HomeScreen = ({
         </TouchableOpacity>
       </View>
       <View>
-        <Footer navigation={navigation} user={user}/>
+        <Footer navigation={navigation} user={user} />
       </View>
     </View>
   );
@@ -111,17 +138,15 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    padding: 40,
-    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
-    backgroundColor: "#0782f9",
     width: "100%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
+    backgroundColor: "orange",
+    marginTop: 5
   },
   loginButton: {
     backgroundColor: "#0782f9",
@@ -137,7 +162,14 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
+    alignSelf: "center",
+    width: "72%",
     flex: 1,
+  },
+  exchangeText: {
+    padding: 5,
+    fontSize: 14,
+
   },
   input: {
     backgroundColor: "white",
