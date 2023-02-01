@@ -37,7 +37,6 @@ const HomeScreen = ({
   }, [selectedCurrency]);
 
   useEffect(() => {
-    console.log(user);
     getUsers.then((users) => {
       users.filter((thisUser) => {
         if (thisUser.email === user.email) {
@@ -120,7 +119,7 @@ const HomeScreen = ({
       <Header />
       <View style={styles.content}>
         {exchangeRate && (
-          <Text>
+          <Text style={styles.exchangeText}>
             1 Pound Coin = {exchangeRate} {selectedCurrency}
           </Text>
         )}
@@ -143,17 +142,15 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    padding: 40,
-    alignItems: "center",
+    backgroundColor: "white",
   },
   button: {
-    backgroundColor: "#0782f9",
     width: "100%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
+    backgroundColor: "orange",
+    marginTop: 5
   },
   loginButton: {
     backgroundColor: "#0782f9",
@@ -169,7 +166,14 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "stretch",
+    alignSelf: "center",
+    width: "72%",
     flex: 1,
+  },
+  exchangeText: {
+    padding: 5,
+    fontSize: 14,
+
   },
   input: {
     backgroundColor: "white",

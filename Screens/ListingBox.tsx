@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    width: 50,
+    width: 45,
+    padding: 5
   },
   details: {
     alignSelf: "baseline",
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   amount: {
-    fontSize: 16,
+    fontSize: 18,
     color: "black",
     padding: 2,
     fontWeight: "bold"
