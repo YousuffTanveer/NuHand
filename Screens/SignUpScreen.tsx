@@ -20,7 +20,7 @@ import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 
 
-const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
+const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUrl }) => {
     
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,6 +44,8 @@ const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setUser(user)
+        setImageUrl("")
       })
       .catch((error) => {
         const errorCode = error.code;

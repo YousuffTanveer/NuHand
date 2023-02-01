@@ -73,14 +73,14 @@ const Account = ({
     func();
   }, [imageUrl, imageWasChanged]);
 
-  console.log(imageUrl);
 
   const handleSignOut = () => {
     setUser([]);
     setImageUrl("");
+    setUserObject({})
     return navigation.navigate("Home");
   };
-
+console.log(userObject, "<<<<<< userObject Account")
   return (
     <View style={styles.containerStyle}>
       <View style={styles.profileElements}>

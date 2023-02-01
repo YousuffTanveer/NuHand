@@ -35,6 +35,7 @@ const HomeScreen = ({
     getUsers.then((users) => {
       users.filter((thisUser) => {
         if (thisUser.email === user.email) {
+          console.log(user, 'user<<<<<cHomeScreen')
           setUserObject(thisUser);
         }
       });
@@ -100,7 +101,7 @@ const HomeScreen = ({
       return navigation.navigate("Account");
     }
   };
-
+console.log(setUserObject, "<<<< userObject HomeScreen")
   return (
     <View style={styles.container}>
       <View>
@@ -111,6 +112,11 @@ const HomeScreen = ({
           source={ imageUrl? {uri: imageUrl} : {uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}
           title={user.length <= 0 ? "Login" : "Profile"}
         />
+        {user.length <= 0 ? (
+          <Text style={styles.loginText}>Login</Text>
+        ) : (
+          <Text style={styles.loginText}>Profile</Text>
+        ) }
       </View>
       <Header />
       <View style={styles.content}>
@@ -178,6 +184,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
   },
+  loginText: {
+   paddingLeft: 12,
+   fontWeight: "300",
+  }
 });
 function axiosGet(arg0: string) {
   throw new Error("Function not implemented.");
