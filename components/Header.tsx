@@ -3,8 +3,9 @@ import React from "react";
 
 const Header = () => {
   return (
-    <View>
-      <Text style={styles.header}> nuHand </Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>nuHand</Text>
+      <Text style={styles.tag}>NO MIDDLEMAN. NO FEES.</Text>
     </View>
   );
 };
@@ -12,9 +13,18 @@ const Header = () => {
 export default Header;
 
 const styles = StyleSheet.create({
-  header: {
+  container: {
     padding: 40,
-    alignItems: "center",
-    fontSize: 60,
   },
+  header: {
+    alignSelf: "center",
+    fontSize: 72,
+    fontFamily: "Droid Sans Mono",
+    fontWeight: "bold"
+  },
+  tag: {
+    alignSelf: "center",
+    fontSize: 20,
+    fontWeight: "bold"
+  }
 });
