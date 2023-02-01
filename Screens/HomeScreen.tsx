@@ -24,7 +24,7 @@ const HomeScreen = ({
   imageUrl,
   setImageUrl
 }) => {
-  
+  console.log(imageUrl, '<<<<<imageUrl Home')
   useEffect(() => {
     if (conversion !== null) {
       const value = conversion.rates[selectedCurrency];

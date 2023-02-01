@@ -9,10 +9,11 @@ import * as ImagePicker from "expo-image-picker"
 import { firebaseConfig } from "../firebaseConfig";
 
 const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUrl, setImageUrl} ) => {
-
+const [imageWasChanged, setImageWasChanged] = useState(false)
  
 
   const pickImageAsync = async () => {
+    setImageWasChanged(false)
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       // quality: 1,
@@ -20,13 +21,12 @@ const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUr
     
     const storageRef = ref(storage, `${userObject.id}`);
     if (!result.canceled) {
-      console.log(result);
-      console.log(result.uri, "<<<<<uri")
       const img = await fetch(result.uri)
       const bytes = await img.blob()
 
     uploadBytes(storageRef, bytes).then((snapshot) => {
       console.log('Uploaded a blob or file!');
+      setImageWasChanged(true)
     }).catch((err) => {
       console.log(err)
     })
@@ -39,7 +39,6 @@ const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUr
     const func = async () => {
       const imageRef = ref(storage, `/${userObject.id}`)
       await getDownloadURL(imageRef).then((x) => {
-        console.log(imageRef, "<<<< imageRef")
         setImageUrl(x)
       //   setUserObject(prev => ({
       //     ...prev,
@@ -48,12 +47,13 @@ const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUr
       })
      }
      func()
-  }, [imageUrl, userObject.profile_image])
-  console.log(imageUrl)
-  console.log(userObject.profile_image, "<<<<< profile image")
+  }, [imageUrl, imageWasChanged])
 
-  console.log(userObject)
- const profileImage = userObject.profile_image
+  console.log(imageUrl)
+  
+
+ 
+
   const handleSignOut = () => {
     setUser([]);
     setImageUrl('');
@@ -73,7 +73,6 @@ const Account = ( {user, navigation, setUser, userObject, setUserObject, imageUr
             <Avatar size={100} title="avatar" rounded source={{
                uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}></Avatar>
             <Button title={"add profile image"} onPress={pickImageAsync}/>
-            {/* <Button  title="Choose a photo" onPress={pickImageAsync} /> */}
           </View>
         )}
         <Text style={styles.userName}>
