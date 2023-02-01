@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import ListingBox from "./ListingBox";
 
-const MyListings = ({ user, setListings, listings, newListing, navigation }) => {
+const MyListings = ({ user, setListings, listings, newListing, navigation, userCoords }) => {
     
   useEffect(() => {
     getListings.then((listings) => {
@@ -39,11 +39,11 @@ const MyListings = ({ user, setListings, listings, newListing, navigation }) => 
       <ScrollView style={styles.listContainer}>
         {listings.map((listing) => {
 
-          return <ListingBox listing={listing} user={user} setListings={setListings} />;
+          return <ListingBox listing={listing} user={user} setListings={setListings} userCoords={userCoords}/>;
         })}
       </ScrollView>
        <View>
-        <Footer navigation={navigation} user={user} />
+        <Footer navigation={navigation} user={user}  />
       </View>
     </View>
   );

@@ -22,7 +22,8 @@ const HomeScreen = ({
   exchangeRate,
   setExchangeRate,
   imageUrl,
-  setImageUrl
+  setImageUrl,
+  userCoords
 }) => {
   useEffect(() => {
     if (conversion !== null) {
@@ -100,6 +101,13 @@ const HomeScreen = ({
       return navigation.navigate("Account");
     }
   };
+
+  if ('geolocation' in navigator) {
+    console.log("geolocation is available")
+  } else {
+   console.log("geolocation IS NOT available")
+  }
+  console.log(userCoords)
 
   return (
     <View style={styles.container}>

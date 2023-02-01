@@ -54,14 +54,14 @@ const addNewUser = (email, first_name, last_name, number, location) => {
   });
 };
 
-const addNewListing = (amount_from, amount_to, to, email) => {
+const addNewListing = (amount_from, amount_to, to, email, coords) => {
   addDoc(listingsRef, {
     amount_from: amount_from,
     amount_to: amount_to,
     from: "GBP",
     to: to,
-    created_by: email
-
+    created_by: email,
+    coords: coords,
   });
 };
 

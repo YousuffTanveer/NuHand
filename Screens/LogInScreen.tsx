@@ -15,12 +15,19 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getUsers } from '../firebaseConfig';
-import { ref, getDownloadURL} from "firebase/storage";
-import { storage } from '../firebaseConfig';
+import { getUsers } from "../firebaseConfig";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebaseConfig";
 import Header from "../components/Header";
 
-const LogInScreen = ({ navigation, user, setUser, setUserObject, setImageUrl}) => {
+const LogInScreen = ({
+  navigation,
+  user,
+  setUser,
+  setUserObject,
+  setImageUrl,
+  setUserCoords,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
@@ -40,19 +47,22 @@ const LogInScreen = ({ navigation, user, setUser, setUserObject, setImageUrl}) =
   const handleLogIn = () => {
     setErr(false);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {       
-        setUser(userCredential.user)
+      .then((userCredential) => {
+        setUser(userCredential.user);
         getUsers.then((users) => {
           users.filter((thisUser) => {
             if (thisUser.email === email) {
-              const imageRef = ref(storage, `/${thisUser.id}`)
-            getDownloadURL(imageRef).then((x) => {
-        setImageUrl(x)
-      })
-            } 
+              const imageRef = ref(storage, `/${thisUser.id}`);
+              getDownloadURL(imageRef).then((x) => {
+                setImageUrl(x);
+              });
+            }
           });
-        })
-        return navigation.navigate("Home")
+          navigator.geolocation.getCurrentPosition((position) => {
+          setUserCoords([position.coords.latitude, position.coords.longitude]);
+        });
+        });
+        return navigation.navigate("Home");
       })
       .catch((error) => {
         setErr(true);
