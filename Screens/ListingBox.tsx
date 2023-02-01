@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { color } from "@rneui/base";
 
-const ListingBox = ({ listing, setListings, user }) => {
+const ListingBox = ({ listing, setListings, user, navigation }) => {
   const [seller, setSeller] = useState({
     first_name: "",
     last_name: "",
@@ -37,6 +37,10 @@ const ListingBox = ({ listing, setListings, user }) => {
     // setDeletedListing(listing.id)
     deleteListing(listing.id);
   };
+
+  const messageButtonClick = () => {
+    return navigation.navigate("Messages")
+  }
 
   return (
     <View>
@@ -67,6 +71,7 @@ const ListingBox = ({ listing, setListings, user }) => {
           color={"grey"}
           style={styles.button}
           title="M"
+          onPress={messageButtonClick}
         />
         )}
         {listing.created_by === user.email ? (

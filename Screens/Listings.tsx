@@ -48,7 +48,7 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
       <ScrollView style={styles.listContainer}>
         {listings.map((listing) => {
 
-          return <ListingBox listing={listing} user={user} setListings={setListings}/>;
+          return <ListingBox listing={listing} user={user} setListings={setListings} navigation={navigation}/>;
         })}
       </ScrollView>
        <View>
