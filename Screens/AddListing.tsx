@@ -43,18 +43,19 @@ const AddListing: React.FC<Props> = ({
 
   const handleAddListing = () => {
     const gbpAmount = roundedToggle ? roundedGbp : equivalentGbp;
-    setListings((currListings) => {
-      return [
-        ...currListings,
-        {
-          amount_from: gbpAmount,
-          amount_to: exchangeAmount,
-          from: "GBP",
-          to: selectedCurrency,
-          created_by: user.email,
-        },
-      ];
-    });
+    // setListings((currListings) => {
+        
+    //   return [
+    //     ...currListings,
+    //     {
+    //       amount_from: gbpAmount,
+    //       amount_to: exchangeAmount,
+    //       from: "GBP",
+    //       to: selectedCurrency,
+    //       created_by: user.email,
+    //     },
+    //   ];
+    // });
     addNewListing(gbpAmount, exchangeAmount, selectedCurrency, user.email);
     setSelectedCurrency("");
     setExchangeAmount("");

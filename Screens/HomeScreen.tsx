@@ -42,8 +42,6 @@ const HomeScreen = ({
       users.filter((thisUser) => {
         if (thisUser.email === user.email) {
           setUserObject(thisUser);
-        } else {
-          setUserObject(null);
         }
       });
     });
@@ -52,7 +50,7 @@ const HomeScreen = ({
   useEffect(() => {
     axios
       .get("https://api.frankfurter.app/latest?from=GBP")
-      .then((res) => {
+      .then((res) => {        
         setConversion(res.data);
         setExchangeRates(res.data.rates);
       })

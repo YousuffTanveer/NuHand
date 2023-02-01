@@ -59,13 +59,17 @@ const ListingBox = ({ listing, setListings, user }) => {
             {listing.amount_from} {listing.from}
           </ListItem.Subtitle>
           <View style={styles.buttonContainer}>
-        <Button
+        {listing.created_by === user.email ? (
+          null
+        ) : (
+          <Button
           radius={"sm"}
           type="solid"
           color={"grey"}
           style={styles.button}
           title="M"
         />
+        )}
         {listing.created_by === user.email ? (
           <Button
             radius={"sm"}
