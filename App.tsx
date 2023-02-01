@@ -16,6 +16,7 @@ import MyListings from "./Screens/MyListings";
 import SavedListings from "./Screens/SavedListings";
 import SignUpScreen from "./Screens/SignUpScreen";
 import WelcomeScreen from "./Screens/WelcomeScreen";
+import AllMessages from "./Screens/AllMessages";
 
 type RootStackParamList = {
   Login: undefined;
@@ -124,6 +125,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="Account" options={{ title: "Account" }}>
           {(props) => <Account {...props} user={user} setUser={setUser} userObject={userObject} setUserObject={setUserObject} imageUrl={imageUrl} setImageUrl={setImageUrl} />}
+        </Stack.Screen>
+        <Stack.Screen name="AllMessages" options={{ title: "AllMessages" }}>
+          {(props) => <AllMessages {...props}  />}
         </Stack.Screen>
         <Stack.Screen name="SavedListings" options={{ title: "SavedListings" }}>
           {(props) => <SavedListings {...props} user={user} imageUrl={imageUrl}/>}
