@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { Avatar, ListItem } from "@rneui/themed";
+import { Avatar } from "@rneui/themed";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { getUsers } from "../firebaseConfig";
@@ -13,8 +13,6 @@ const HomeScreen = ({
   setSelectedCurrency,
   firstName,
   user,
-  setUser,
-  currencies,
   setExchangeRates,
   setUserObject,
   conversion,
@@ -22,8 +20,7 @@ const HomeScreen = ({
   exchangeRate,
   setExchangeRate,
   imageUrl,
-  setImageUrl,
-  userCoords
+  userCoords,
 }) => {
   useEffect(() => {
     if (conversion !== null) {
@@ -36,7 +33,7 @@ const HomeScreen = ({
     getUsers.then((users) => {
       users.filter((thisUser) => {
         if (thisUser.email === user.email) {
-          console.log(user, 'user<<<<<cHomeScreen')
+          console.log(user, "user<<<<<cHomeScreen");
           setUserObject(thisUser);
         }
       });
@@ -46,7 +43,7 @@ const HomeScreen = ({
   useEffect(() => {
     axios
       .get("https://api.frankfurter.app/latest?from=GBP")
-      .then((res) => {        
+      .then((res) => {
         setConversion(res.data);
         setExchangeRates(res.data.rates);
       })
@@ -55,7 +52,6 @@ const HomeScreen = ({
       });
   }, []);
 
-  // api data:
   const data = [
     { key: "1", value: "AUD" },
     { key: "2", value: "BGN" },
@@ -103,12 +99,12 @@ const HomeScreen = ({
     }
   };
 
-  if ('geolocation' in navigator) {
-    console.log("geolocation is available")
+  if ("geolocation" in navigator) {
+    console.log("geolocation is available");
   } else {
-   console.log("geolocation IS NOT available")
+    console.log("geolocation IS NOT available");
   }
-  console.log(userCoords)
+  console.log(userCoords);
 
   return (
     <View style={styles.container}>
@@ -117,14 +113,20 @@ const HomeScreen = ({
           size={60}
           onPress={handleSubmitLogin}
           rounded
-          source={ imageUrl? {uri: imageUrl} : {uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b"}}
+          source={
+            imageUrl
+              ? { uri: imageUrl }
+              : {
+                  uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b",
+                }
+          }
           title={user.length <= 0 ? "Login" : "Profile"}
         />
         {user.length <= 0 ? (
           <Text style={styles.loginText}>Login</Text>
         ) : (
           <Text style={styles.loginText}>Profile</Text>
-        ) }
+        )}
       </View>
       <Header />
       <View style={styles.content}>
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     backgroundColor: "orange",
-    marginTop: 5
+    marginTop: 5,
   },
   loginButton: {
     backgroundColor: "#0782f9",
@@ -183,7 +185,6 @@ const styles = StyleSheet.create({
   exchangeText: {
     padding: 5,
     fontSize: 14,
-
   },
   input: {
     backgroundColor: "white",
@@ -193,10 +194,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   loginText: {
-   paddingLeft: 12,
-   fontWeight: "300",
-  }
+    paddingLeft: 12,
+    fontWeight: "300",
+  },
 });
-function axiosGet(arg0: string) {
-  throw new Error("Function not implemented.");
-}
