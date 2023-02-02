@@ -20,7 +20,7 @@ import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 
 
-const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
+const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUrl }) => {
     
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

@@ -136,7 +136,7 @@ export default function App() {
           {(props) => <SavedListings {...props} user={user} imageUrl={imageUrl}/>}
         </Stack.Screen>
         <Stack.Screen name="PersonalInfo" options={{ title: "PersonalInfo" }}>
-          {(props) => <PersonalInfo {...props} userObject={userObject} imageUrl={imageUrl} />}
+          {(props) => <PersonalInfo {...props} userObject={userObject} setUserObject={setUserObject} imageUrl={imageUrl} />}
         </Stack.Screen>
         <Stack.Screen name="MyListings" options={{ title: "MyListings" }}>
           {(props) => <MyListings {...props} user={user} setListings={setListings} listings={listings} newListing={newListing} userCoords={userCoords} />}
@@ -150,11 +150,13 @@ export default function App() {
               {...props}
               firstName={firstName}
               setFirstName={setFirstName}
+              setUser={setUser}
+              setImageUrl={setImageUrl}
             />
           )}
         </Stack.Screen>
         <Stack.Screen name="Welcome" options={{ title: "Welcome" }}>
-          {(props) => <WelcomeScreen {...props} firstName={firstName} imageUrl={imageUrl} />}
+          {(props) => <WelcomeScreen {...props} firstName={firstName} imageUrl={imageUrl} user={user}/>}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

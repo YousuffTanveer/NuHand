@@ -35,12 +35,15 @@ const Footer = ({navigation, user}) => {
 return (
   <View style={styles.tabContainer}>
       <TouchableOpacity  style={styles.button} onPress={handleAddListing}>
+        <Ionicons name='add' color="white" size={32} style={styles.icon}/>
      <Text style={styles.buttonText} >Add Listing</Text>
      </TouchableOpacity>
      <TouchableOpacity style={styles.button} onPress={handleListing}>
+     <Ionicons name='ios-albums' color="white" size={32} style={styles.icon}/>
      <Text style={styles.buttonText}>Listings</Text>
      </TouchableOpacity>
      <TouchableOpacity style={styles.button} onPress={handleMessages}>
+     <Ionicons name='chatbubbles' color="white" size={32} style={styles.icon}/>
      <Text style={styles.buttonText}>Messages</Text>
      </TouchableOpacity>
      </View>
@@ -85,14 +88,20 @@ tabContainer: {
 },
 button: {
   flex: 1,
+  flexDirection: "column",
   backgroundColor: "orange",
 },
 buttonText: {
   color: "white",
   fontWeight: "700",
   alignSelf: "center",
-  fontSize: 16,
-  paddingTop: 15,
-  paddingBottom: 15
+  fontSize: 10,
+  paddingTop: 0,
+  paddingBottom: 10,
 },
+icon: {
+  alignSelf: "center",
+  padding: 0,
+  margin: 0
+}
 })
