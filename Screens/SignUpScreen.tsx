@@ -8,39 +8,35 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addNewUser, auth, db } from "../firebaseConfig";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
-
-
-
-
-const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUrl }) => {
-    
+const SignUpScreen = ({ navigation, firstName, setFirstName }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
-  
+
   const checkTextInput = () => {
-    if (!firstName.trim() || !lastName.trim() || !number.trim() || !email.trim() || !password.trim()){
-      alert('Please Enter Empty Field');
+    if (
+      !firstName.trim() ||
+      !lastName.trim() ||
+      !number.trim() ||
+      !email.trim() ||
+      !password.trim()
+    ) {
+      alert("Please Enter Empty Field");
       return;
     } else {
-        navigation.navigate("Welcome")
+      navigation.navigate("Welcome");
     }
   };
 
   const handleSignUp = () => {
-    checkTextInput()
-    addNewUser(email, firstName, lastName, number, location)
-    
+    checkTextInput();
+    addNewUser(email, firstName, lastName, number, location);
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -49,7 +45,6 @@ const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUr
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-
   };
 
   return (
@@ -97,10 +92,7 @@ const SignUpScreen = ({ navigation, firstName, setFirstName, setUser, setImageUr
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={handleSignUp} style={styles.button}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
       </View>

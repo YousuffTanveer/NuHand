@@ -1,5 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, query, where, orderBy } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref } from "firebase/storage";
 
@@ -19,8 +30,6 @@ const db = getFirestore();
 
 const listingsRef = collection(db, "listings");
 
-
-
 const usersRef = collection(db, "users");
 
 const auth = getAuth();
@@ -38,7 +47,6 @@ const getListings = getDocs(listingsRef).then((snapshot) => {
 const getUsers = getDocs(usersRef).then((snapshot) => {
   let users: Array<any> = [];
   snapshot.docs.forEach((doc) => {
-
     users.push({ ...doc.data(), id: doc.id });
   });
   return users;
@@ -50,7 +58,7 @@ const addNewUser = (email, first_name, last_name, number, location) => {
     first_name: first_name,
     last_name: last_name,
     number: number,
-    location: location
+    location: location,
   });
 };
 
@@ -66,22 +74,39 @@ const addNewListing = (amount_from, amount_to, to, email, coords) => {
 };
 
 const deleteListing = (id) => {
-  const deleteListingRef = doc(db, "listings", id)
-  deleteDoc(deleteListingRef)
-}
+  const deleteListingRef = doc(db, "listings", id);
+  deleteDoc(deleteListingRef);
+};
 
 const updateUser = (email, first_name, last_name, number, location, id) => {
-  const updateUserRef = doc(db, "users", id)
+  const updateUserRef = doc(db, "users", id);
   updateDoc(updateUserRef, {
     email: email,
     first_name: first_name,
     last_name: last_name,
     number: number,
-    location: location
+    location: location,
   });
 };
 
+const listingsQuery = query(
+  listingsRef,
+  where("to", "==", "EUR"),
+  orderBy("amount_from", "desc")
+);
 
-const listingsQuery = query(listingsRef, where("to", "==", "EUR"), orderBy("amount_from", "desc"))
-
-export { auth, addNewUser, db, listingsRef, getListings, getUsers, usersRef, addNewListing, deleteListing, updateUser, listingsQuery, storage, firebaseConfig};
+export {
+  auth,
+  addNewUser,
+  db,
+  listingsRef,
+  getListings,
+  getUsers,
+  usersRef,
+  addNewListing,
+  deleteListing,
+  updateUser,
+  listingsQuery,
+  storage,
+  firebaseConfig,
+};

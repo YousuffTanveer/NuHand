@@ -4,15 +4,23 @@ import { getListings, getUsers } from "../firebaseConfig";
 import ListingBox from "./ListingBox";
 import { SelectList } from "react-native-dropdown-select-list";
 import { ListItem } from "@rneui/base";
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 
-const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies, user, setListings, listings, userCoords }) => {
-
-
-
+const Listings = ({
+  navigation,
+  selectedCurrency,
+  setSelectedCurrency,
+  conversion,
+  exchangeRate,
+  setExchangeRate,
+  currencies,
+  user,
+  setListings,
+  listings,
+  userCoords,
+}) => {
   useEffect(() => {
     getListings.then((listings) => {
-      
       let filteredListings: Array<{}> = [];
       listings.filter((listing) => {
         if (listing.to === selectedCurrency) {
@@ -20,7 +28,7 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
         }
       });
       console.log(filteredListings, "<<<<<<<<<<<");
-      
+
       setListings(filteredListings);
     });
   }, [selectedCurrency]);
@@ -47,11 +55,18 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
       </ListItem>
       <ScrollView style={styles.listContainer}>
         {listings.map((listing) => {
-
-          return <ListingBox listing={listing} user={user} setListings={setListings} userCoords={userCoords} navigation={navigation}/>;
+          return (
+            <ListingBox
+              listing={listing}
+              user={user}
+              setListings={setListings}
+              userCoords={userCoords}
+              navigation={navigation}
+            />
+          );
         })}
       </ScrollView>
-       <View>
+      <View>
         <Footer navigation={navigation} user={user} />
       </View>
     </View>
@@ -71,13 +86,13 @@ const styles = StyleSheet.create({
     width: 300,
     fontSize: 18,
     color: "black",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   X: {
     alignItems: "flex-end",
     fontSize: 18,
     color: "orange",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   listContainer: {
     flex: 1,

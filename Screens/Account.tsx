@@ -1,27 +1,10 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  SafeAreaView,
-  Alert,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { Avatar, ListItem } from "@rneui/themed";
 import React from "react";
-import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
-import {
-  ref,
-  uploadBytes,
-  listAll,
-  getDownloadURL,
-  getStorage,
-} from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebaseConfig";
 import * as ImagePicker from "expo-image-picker";
-import { firebaseConfig } from "../firebaseConfig";
 
 const Account = ({
   user,
@@ -38,7 +21,6 @@ const Account = ({
     setImageWasChanged(false);
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      // quality: 1,
     });
 
     const storageRef = ref(storage, `${userObject.id}`);
@@ -73,13 +55,12 @@ const Account = ({
     func();
   }, [imageUrl, imageWasChanged]);
 
-
   const handleSignOut = () => {
     setUser([]);
     setImageUrl("");
     return navigation.navigate("Home");
   };
-console.log(userObject, "<<<<<< userObject Account")
+  console.log(userObject, "<<<<<< userObject Account");
   return (
     <View style={styles.containerStyle}>
       <View style={styles.profileElements}>
@@ -87,7 +68,7 @@ console.log(userObject, "<<<<<< userObject Account")
           <View style={styles.imageContainer}>
             <Avatar size={100} rounded source={{ uri: imageUrl }}></Avatar>
             <View style={styles.buttonContainer}>
-            <Button title={"change image"} onPress={pickImageAsync}  />
+              <Button title={"change image"} onPress={pickImageAsync} />
             </View>
           </View>
         ) : (
@@ -101,7 +82,7 @@ console.log(userObject, "<<<<<< userObject Account")
               }}
             ></Avatar>
             <View style={styles.buttonContainer}>
-            <Button title={"add profile image"} onPress={pickImageAsync}  />
+              <Button title={"add profile image"} onPress={pickImageAsync} />
             </View>
           </View>
         )}
@@ -227,12 +208,12 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "700",
     fontSize: 16,
-    textAlign: "center"
+    textAlign: "center",
   },
   buttonContainer: {
     margin: 10,
   },
   imageContainer: {
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

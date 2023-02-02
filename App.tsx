@@ -8,7 +8,6 @@ import HomeScreen from "./Screens/HomeScreen";
 import Listings from "./Screens/Listings";
 import Account from "./Screens/Account";
 import AddListing from "./Screens/AddListing";
-import Footer from "./components/Footer";
 import Messages from "./Screens/Messages";
 
 import PersonalInfo from "./Screens/PersonalInfo";
@@ -17,11 +16,6 @@ import SavedListings from "./Screens/SavedListings";
 import SignUpScreen from "./Screens/SignUpScreen";
 import WelcomeScreen from "./Screens/WelcomeScreen";
 import AllMessages from "./Screens/AllMessages";
-
-type RootStackParamList = {
-  Login: undefined;
-  Home: undefined;
-};
 
 interface conversionProps {
   amount: number;
@@ -162,19 +156,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  items: {
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: "pink",
-    fontSize: 24,
-    textAlign: "center",
-  },
-});

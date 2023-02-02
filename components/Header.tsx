@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 72,
     fontFamily: "Droid Sans Mono",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   tag: {
     alignSelf: "center",
     fontSize: 20,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });

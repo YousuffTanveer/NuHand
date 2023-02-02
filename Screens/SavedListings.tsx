@@ -1,14 +1,15 @@
-import {Text} from 'react-native';
-import Footer from '../components/Footer'
+import { View, Text } from "react-native";
+import Footer from "../components/Footer";
 
-const SavedListings = ({navigation}) => {
-    return 
+const SavedListings = ({ navigation, user }) => {
+  return (
     <View>
-    <Text> SavedListings </Text>
-    <View>
-        <Footer navigation={navigation} />
+      <Text> SavedListings </Text>
+      <View>
+        <Footer user={user} navigation={navigation} />
       </View>
-     </View>
-}
+    </View>
+  );
+};
 
-export default SavedListings
+export default SavedListings;

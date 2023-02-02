@@ -7,42 +7,20 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { auth } from "../firebaseConfig";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 import { getUsers } from "../firebaseConfig";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebaseConfig";
 import Header from "../components/Header";
 
-const LogInScreen = ({
-  navigation,
-  user,
-  setUser,
-  setUserObject,
-  setImageUrl,
-  setUserCoords,
-}) => {
+const LogInScreen = ({ navigation, setUser, setImageUrl, setUserCoords }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
-
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  };
 
   const handleLogIn = () => {
     setErr(false);
@@ -59,8 +37,11 @@ const LogInScreen = ({
             }
           });
           navigator.geolocation.getCurrentPosition((position) => {
-          setUserCoords([position.coords.latitude, position.coords.longitude]);
-        });
+            setUserCoords([
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
+          });
         });
         return navigation.navigate("Home");
       })

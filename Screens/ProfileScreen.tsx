@@ -7,7 +7,7 @@ import { storage } from '../firebaseConfig';
 
 
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({navigation, user}) => {
   const [image, setImage] = useState("");
   const [imageList, setImageList] = useState("");
 
@@ -47,7 +47,7 @@ const ProfileScreen = ({navigation}) => {
         return <img width="100px" height="100px" src={url}/>;
       })}
       <View>
-        <Footer navigation={navigation} />
+        <Footer user={user} navigation={navigation} />
       </View>
     </View>
   )
