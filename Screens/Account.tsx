@@ -84,12 +84,14 @@ console.log(userObject, "<<<<<< userObject Account")
     <View style={styles.containerStyle}>
       <View style={styles.profileElements}>
         {imageUrl ? (
-          <View>
+          <View style={styles.imageContainer}>
             <Avatar size={100} rounded source={{ uri: imageUrl }}></Avatar>
-            <Button title={"change image"} onPress={pickImageAsync} />
+            <View style={styles.buttonContainer}>
+            <Button title={"change image"} onPress={pickImageAsync}  />
+            </View>
           </View>
         ) : (
-          <View>
+          <View style={styles.imageContainer}>
             <Avatar
               size={100}
               title="avatar"
@@ -98,7 +100,9 @@ console.log(userObject, "<<<<<< userObject Account")
                 uri: "https://firebasestorage.googleapis.com/v0/b/nuhand-45f9e.appspot.com/o/blank.png?alt=media&token=b08d5268-1344-48d7-b0ae-41320604b70b",
               }}
             ></Avatar>
-            <Button title={"add profile image"} onPress={pickImageAsync} />
+            <View style={styles.buttonContainer}>
+            <Button title={"add profile image"} onPress={pickImageAsync}  />
+            </View>
           </View>
         )}
         <Text style={styles.userName}>
@@ -223,5 +227,12 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "700",
     fontSize: 16,
+    textAlign: "center"
   },
+  buttonContainer: {
+    margin: 10,
+  },
+  imageContainer: {
+    alignItems: "center"
+  }
 });

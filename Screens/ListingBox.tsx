@@ -8,6 +8,7 @@ import {
 } from "../firebaseConfig";
 import { useEffect, useState } from "react";
 import { color } from "@rneui/base";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ListingBox = ({ listing, setListings, user }) => {
   const [seller, setSeller] = useState({
@@ -67,7 +68,9 @@ const ListingBox = ({ listing, setListings, user }) => {
           color={"grey"}
           style={styles.button}
           title="M"
-        />
+        > 
+        <Ionicons name='chatbubbles' color="white" size={21}/>
+        </Button>
         )}
         {listing.created_by === user.email ? (
           <Button
@@ -77,15 +80,19 @@ const ListingBox = ({ listing, setListings, user }) => {
             color={"red"}
             title="D"
             onPress={deleteButtonClick}
-          />
+          >
+            <Ionicons name='ios-trash' color="white" size={21}/>
+          </Button>
         ) : (
           <Button
             radius={"sm"}
             type="solid"
             color={"orange"}
             style={styles.button}
-            title="S"
-          />
+            // title="S"
+          > 
+          <Ionicons name='heart' color="white" size={21}/>
+          </Button>
         )}
       </View>
         </ListItem.Content>
