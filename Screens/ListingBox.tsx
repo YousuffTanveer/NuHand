@@ -26,11 +26,22 @@ const findDistance = () => {
   const lon1 = userCoords[1]
   const lon2 = listing.coords[1];
 
-  const x = (lon2-lon1) * Math.cos((lat1+lat2)/2);
-  const y = (lat2-lat1);
-  const d = Math.sqrt(x*x + y*y) * 6371000;
+  function deg2rad(deg) {
+    return deg * (Math.PI/180)
+  }
+
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
   console.log(typeof d)
-  return (d*0.000621371).toFixed(1); // in metres
+  return (d*0.621371).toFixed(1); // in metres
   }
 }
 const distance = findDistance()
@@ -79,7 +90,7 @@ const distanceText = ((distance) => {
             {seller.location}
           </ListItem.Subtitle>
           {listing.created_by === user.email ? null : (
-            <ListItem.Subtitle>
+            <ListItem.Subtitle style={styles.details}>
               {distanceText(distance)}
             </ListItem.Subtitle>
           )}

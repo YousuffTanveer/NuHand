@@ -5,8 +5,11 @@ import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat';
 import { signOut } from 'firebase/auth';
 import { collection, query, orderBy, onSnapshot, addDoc } from 'firebase/firestore';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+// let { colors } = () => { /* no-op */ }
+// if (Platform.OS !== 'web') {
+//   colors = require('react-native/Libraries/NewAppScreen');
+// }
 
 const Messages = ({navigation, user}) => {
 
