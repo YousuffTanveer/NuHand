@@ -6,7 +6,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { ListItem } from "@rneui/base";
 import Footer from '../components/Footer';
 
-const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies, user, setListings, listings }) => {
+const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversion, exchangeRate, setExchangeRate, currencies, user, setListings, listings, userCoords }) => {
 
 
 
@@ -48,7 +48,7 @@ const Listings = ( { navigation, selectedCurrency, setSelectedCurrency, conversi
       <ScrollView style={styles.listContainer}>
         {listings.map((listing) => {
 
-          return <ListingBox listing={listing} user={user} setListings={setListings}/>;
+          return <ListingBox listing={listing} user={user} setListings={setListings} userCoords={userCoords} navigation={navigation}/>;
         })}
       </ScrollView>
        <View>

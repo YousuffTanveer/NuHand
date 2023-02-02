@@ -3,7 +3,8 @@ import { Avatar, ListItem } from "@rneui/themed";
 import { updateUser } from "../firebaseConfig";
 
 const PersonalInfo = ({ setUserObject, userObject, imageUrl }) => {
-  console.log(userObject, "<<<<< userObject Personal info")
+  console.log(userObject);
+  
   return (
     <View style={styles.containerStyle}>
       <ListItem style={styles.avatar}>
